@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://avatars.githubusercontent.com/gosidehustlesisi" width="120" style="border-radius: 50%;" alt="Sierra Napier" />
+  <img src="https://avatars.githubusercontent.com/snapaiarchitect" width="120" style="border-radius: 50%;" alt="Sierra Napier" />
   <h1>SIERRA-GENAI-ENGINEERING</h1>
   <p><strong>Real arXiv abstracts, real PubMed trials, real SCOTUS opinions — zero synthetic records.</strong></p>
   <p>
@@ -582,7 +582,7 @@ sierra-genai-engineering/
 
 - 🌐 Portfolio: [e3-ai.com](https://e3-ai.com)
 - 💼 LinkedIn: [linkedin.com/in/sierran](https://linkedin.com/in/sierran)
-- 🐙 GitHub: [github.com/gosidehustlesisi](https://github.com/gosidehustlesisi)
+- 🐙 GitHub: [github.com/snapaiarchitect](https://github.com/snapaiarchitect)
 - 📧 Inquiries: Contact via LinkedIn or portfolio site
 
 > **Built with real data. Documented. Deployable.**
