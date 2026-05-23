@@ -1,0 +1,17 @@
+{
+  "fetch_date": "2026-05-21",
+  "api": "U.S. Census ACS 5-Year API",
+  "url": "https://api.census.gov/data/2022/acs/acs5",
+  "year": 2022,
+  "total_records": 3222,
+  "variables": {
+    "median_income": "B19013_001E \u2014 Median household income",
+    "population": "B01003_001E \u2014 Total population",
+    "bachelors_degree": "B15003_022E \u2014 Bachelor's degree or higher",
+    "labor_force": "B23027_002E \u2014 In labor force",
+    "median_rent": "B25064_001E \u2014 Median gross rent",
+    "commute_time": "B08303_001E \u2014 Mean travel time to work",
+    "owner_occupied": "B25003_002E \u2014 Owner-occupied housing units",
+    "renter_occupied": "B25003_003E \u2014 Renter-occupied housing units"
+  }
+}

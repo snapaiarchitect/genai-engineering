@@ -1,0 +1,23 @@
+{
+  "registry_version": "1.0",
+  "last_updated": "2026-05-21T05:55:00.051737",
+  "models": [
+    "random_forest_v1",
+    "ridge_v1"
+  ],
+  "best_model": "random_forest_v1",
+  "all_metrics": {
+    "random_forest_v1": {
+      "rmse": 8911.321903837323,
+      "mae": 6426.320341085271,
+      "r2": 0.7559426174959765,
+      "n_samples": 645
+    },
+    "ridge_v1": {
+      "rmse": 12522.517210798978,
+      "mae": 8646.045219935024,
+      "r2": 0.5180622344889854,
+      "n_samples": 645
+    }
+  }
+}

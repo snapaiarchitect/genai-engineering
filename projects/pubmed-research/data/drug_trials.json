@@ -1,0 +1,202 @@
+[
+  {
+    "drug": "Pembrolizumab",
+    "condition": "NSCLC",
+    "phase": "III",
+    "n_patients": 616,
+    "response_rate": 45.5,
+    "p_value": 0.001,
+    "year": 2019,
+    "source_pattern": "KEYNOTE-024"
+  },
+  {
+    "drug": "Nivolumab",
+    "condition": "Melanoma",
+    "phase": "III",
+    "n_patients": 418,
+    "response_rate": 31.7,
+    "p_value": 0.002,
+    "year": 2015,
+    "source_pattern": "CheckMate-037"
+  },
+  {
+    "drug": "Atezolizumab",
+    "condition": "UC",
+    "phase": "II",
+    "n_patients": 119,
+    "response_rate": 23.5,
+    "p_value": 0.01,
+    "year": 2016,
+    "source_pattern": "IMvigor210"
+  },
+  {
+    "drug": "Durvalumab",
+    "condition": "NSCLC",
+    "phase": "III",
+    "n_patients": 713,
+    "response_rate": 28.4,
+    "p_value": 0.001,
+    "year": 2017,
+    "source_pattern": "PACIFIC"
+  },
+  {
+    "drug": "Trastuzumab",
+    "condition": "HER2+ BC",
+    "phase": "III",
+    "n_patients": 469,
+    "response_rate": 62.0,
+    "p_value": 0.0001,
+    "year": 2001,
+    "source_pattern": "HERA"
+  },
+  {
+    "drug": "Rituximab",
+    "condition": "NHL",
+    "phase": "III",
+    "n_patients": 399,
+    "response_rate": 55.0,
+    "p_value": 0.001,
+    "year": 2002,
+    "source_pattern": "GELA"
+  },
+  {
+    "drug": "Imatinib",
+    "condition": "CML",
+    "phase": "III",
+    "n_patients": 1106,
+    "response_rate": 76.2,
+    "p_value": 0.0001,
+    "year": 2003,
+    "source_pattern": "IRIS"
+  },
+  {
+    "drug": "Bevacizumab",
+    "condition": "CRC",
+    "phase": "III",
+    "n_patients": 813,
+    "response_rate": 44.8,
+    "p_value": 0.004,
+    "year": 2004,
+    "source_pattern": "AVF2107g"
+  },
+  {
+    "drug": "Cetuximab",
+    "condition": "CRC",
+    "phase": "III",
+    "n_patients": 572,
+    "response_rate": 36.4,
+    "p_value": 0.02,
+    "year": 2004,
+    "source_pattern": "CRYSTAL"
+  },
+  {
+    "drug": "Adalimumab",
+    "condition": "RA",
+    "phase": "III",
+    "n_patients": 619,
+    "response_rate": 58.0,
+    "p_value": 0.001,
+    "year": 2003,
+    "source_pattern": "DE019"
+  },
+  {
+    "drug": "Infliximab",
+    "condition": "CD",
+    "phase": "III",
+    "n_patients": 108,
+    "response_rate": 81.0,
+    "p_value": 0.001,
+    "year": 1999,
+    "source_pattern": "ACCENT"
+  },
+  {
+    "drug": "Etanercept",
+    "condition": "RA",
+    "phase": "III",
+    "n_patients": 234,
+    "response_rate": 59.0,
+    "p_value": 0.001,
+    "year": 2000,
+    "source_pattern": "TEMPO"
+  },
+  {
+    "drug": "Omalizumab",
+    "condition": "Asthma",
+    "phase": "III",
+    "n_patients": 419,
+    "response_rate": 42.0,
+    "p_value": 0.003,
+    "year": 2003,
+    "source_pattern": "INNOVATE"
+  },
+  {
+    "drug": "Denosumab",
+    "condition": "Osteoporosis",
+    "phase": "III",
+    "n_patients": 7868,
+    "response_rate": 68.0,
+    "p_value": 0.001,
+    "year": 2009,
+    "source_pattern": "FREEDOM"
+  },
+  {
+    "drug": "Ipilimumab",
+    "condition": "Melanoma",
+    "phase": "III",
+    "n_patients": 676,
+    "response_rate": 10.9,
+    "p_value": 0.04,
+    "year": 2010,
+    "source_pattern": "MDX010-020"
+  },
+  {
+    "drug": "Avelumab",
+    "condition": "MCC",
+    "phase": "II",
+    "n_patients": 88,
+    "response_rate": 33.0,
+    "p_value": 0.001,
+    "year": 2016,
+    "source_pattern": "JAVELIN"
+  },
+  {
+    "drug": "Sipuleucel-T",
+    "condition": "Prostate",
+    "phase": "III",
+    "n_patients": 512,
+    "response_rate": 25.0,
+    "p_value": 0.03,
+    "year": 2010,
+    "source_pattern": "IMPACT"
+  },
+  {
+    "drug": "Carfilzomib",
+    "condition": "MM",
+    "phase": "III",
+    "n_patients": 792,
+    "response_rate": 77.0,
+    "p_value": 0.001,
+    "year": 2015,
+    "source_pattern": "ENDEAVOR"
+  },
+  {
+    "drug": "Vemurafenib",
+    "condition": "Melanoma",
+    "phase": "III",
+    "n_patients": 675,
+    "response_rate": 48.0,
+    "p_value": 0.001,
+    "year": 2011,
+    "source_pattern": "BRIM-3"
+  },
+  {
+    "drug": "Crizotinib",
+    "condition": "NSCLC",
+    "phase": "III",
+    "n_patients": 343,
+    "response_rate": 74.0,
+    "p_value": 0.001,
+    "year": 2013,
+    "source_pattern": "PROFILE1014"
+  }
+]

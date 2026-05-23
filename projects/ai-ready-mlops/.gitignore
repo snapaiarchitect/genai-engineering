@@ -1,0 +1,10 @@
+data/models/*
+data/metrics/*
+data/drift/*
+data/registry.db
+__pycache__/
+*.pyc
+*.egg-info/
+.ipynb_checkpoints/
+*.png
+*.jpg

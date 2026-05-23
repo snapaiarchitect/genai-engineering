@@ -1,0 +1,53 @@
+{
+  "fetch_date": "2026-05-21T06:09:09.547628",
+  "api": "NCBI E-utilities (PubMed)",
+  "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils",
+  "query": "machine learning",
+  "total_records": 500,
+  "top_journals": [
+    [
+      "Scientific reports",
+      50
+    ],
+    [
+      "Digital health",
+      10
+    ],
+    [
+      "bioRxiv : the preprint server for biology",
+      9
+    ],
+    [
+      "PloS one",
+      8
+    ],
+    [
+      "Medicine",
+      8
+    ],
+    [
+      "Briefings in bioinformatics",
+      7
+    ],
+    [
+      "Frontiers in immunology",
+      6
+    ],
+    [
+      "Nature",
+      6
+    ],
+    [
+      "Frontiers in oncology",
+      5
+    ],
+    [
+      "Nature communications",
+      5
+    ]
+  ],
+  "year_distribution": {
+    "2025": 3,
+    "2026": 497
+  }
+}

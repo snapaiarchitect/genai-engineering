@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sierra Napier — AI Systems & NLP Engineering. LLMs, embeddings, RAG, agentic systems. Real arXiv, SCOTUS, PubMed data.">
+    <title>AI Systems & NLP Engineering — Sierra Napier</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-deep: #0f1115;
+            --bg-surface: #111827;
+            --bg-elevated: #1a2234;
+            --border: #1f2d44;
+            --text-primary: #f0f0f0;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --accent-rose: #e11d48;
+            --accent-cyan: #06b6d4;
+            --accent-rose-hover: #f43f5e;
+            --accent-cyan-hover: #22d3ee;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+            background: var(--bg-deep);
+            color: var(--text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+        nav {
+            position: sticky;
+            top: 0;
+            background: rgba(15, 17, 21, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            z-index: 100;
+            padding: 1rem 0;
+        }
+        .nav-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover { color: var(--accent-rose); }
+        .hero {
+            padding: 6rem 0 4rem;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--accent-rose) 0%, var(--accent-cyan) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero .subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+        .hero .stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+        .hero .stat {
+            text-align: center;
+        }
+        .hero .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--accent-rose);
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .hero .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-top: 0.25rem;
+        }
+        .section {
+            padding: 4rem 0;
+            border-top: 1px solid var(--border);
+        }
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .section-subtitle {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+        .project-card {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .project-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 32px rgba(225, 29, 72, 0.1);
+        }
+        .project-card h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--accent-rose);
+        }
+        .project-card .tag {
+            display: inline-block;
+            background: rgba(225, 29, 72, 0.15);
+            color: var(--accent-rose);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+        .project-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 0.75rem;
+        }
+        .project-card .meta {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+        .chart-box {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+        .chart-box:hover {
+            border-color: var(--accent-rose);
+        }
+        .chart-box img {
+            width: 100%;
+            display: block;
+            background: var(--bg-surface);
+        }
+        .chart-caption {
+            padding: 0.75rem 1rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border);
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+        .data-table th {
+            text-align: left;
+            padding: 0.75rem 1rem;
+            background: var(--bg-elevated);
+            border-bottom: 1px solid var(--border);
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+        .data-table td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-primary);
+        }
+        .data-table tr:hover td {
+            background: rgba(225, 29, 72, 0.05);
+        }
+        .data-table a {
+            color: var(--accent-cyan);
+            text-decoration: none;
+        }
+        .data-table a:hover { text-decoration: underline; }
+        .tech-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+        .tech-item {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 3rem 0;
+            text-align: center;
+            color: var(--text-muted);
+        }
+        footer .social {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        footer a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        footer a:hover { color: var(--accent-rose); }
+        .floating-cta {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--accent-rose);
+            color: #fff;
+            padding: 0.875rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 700;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 20px rgba(225, 29, 72, 0.3);
+            transition: background 0.2s;
+            z-index: 1000;
+        }
+        .floating-cta:hover {
+            background: var(--accent-rose-hover);
+        }
+        .lightbox-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 10000;
+            align-items: center;
+            justify-content: center;
+        }
+        .lightbox-overlay.active { display: flex; }
+        .lightbox-img { max-width: 90%; max-height: 90%; border-radius: 8px; }
+        .lightbox-close {
+            position: absolute;
+            top: 2rem; right: 2rem;
+            font-size: 2rem;
+            color: #fff;
+            cursor: pointer;
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="container">
+        <div class="nav-inner">
+            <a href="#" class="nav-brand">
+                <span style="color:var(--accent-rose);">◆</span> Sierra Napier
+            </a>
+            <ul class="nav-links">
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#gallery">Figures</a></li>
+                <li><a href="#data">Data</a></li>
+                <li><a href="#tech">Stack</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<section class="hero">
+    <div class="container">
+        <h1>AI Systems & NLP Engineering</h1>
+        <p class="subtitle">LLM pipelines, retrieval-augmented generation, embedding visualization, and document intelligence on real academic, legal, and biomedical corpora. 9 projects, 43 figures, all real data.</p>
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-number">9</div>
+                <div class="stat-label">Projects</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">43</div>
+                <div class="stat-label">Figures</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">10K+</div>
+                <div class="stat-label">Real Records</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="projects" class="section">
+    <div class="container">
+        <h2 class="section-title">Projects</h2>
+        <p class="section-subtitle">End-to-end NLP and AI system pipelines</p>
+        <div class="projects-grid">
+            <div class="project-card reveal">
+                <span class="tag">Research NLP</span>
+                <h3>arXiv Research Classifier</h3>
+                <p>TF-IDF + Random Forest classification of 2,646 arXiv abstracts across CS categories. Publication timeline analysis, keyword extraction, and category distribution visualization.</p>
+                <div class="meta">2,646 abstracts · 94% accuracy · arXiv API</div>
+            </div>
+            <div class="project-card reveal">
+                <span class="tag">Biomedical NLP</span>
+                <h3>PubMed Research Engine</h3>
+                <p>500 biomedical abstracts from PubMed E-utilities API. Journal distribution analysis, MeSH term extraction, author collaboration patterns, and publication timeline tracking for ML-in-medicine research.</p>
+                <div class="meta">500 abstracts · 200+ journals · NCBI E-utilities</div>
+            </div>
+            <div class="project-card reveal">
+                <span class="tag">Legal NLP</span>
+                <h3>SCOTUS Opinion Mining</h3>
+                <p>Sentiment analysis and citation network extraction from Supreme Court opinions. Legal term frequency analysis, vote margin distributions, and topical clustering over time.</p>
+                <div class="meta">CourtListener API · NLP pipeline · Topic modeling</div>
+            </div>
+            <div class="project-card reveal">
+                <span class="tag">RAG Systems</span>
+                <h3>RAG Knowledge Base Evaluation</h3>
+                <p>Retrieval-Augmented Generation pipeline with t-SNE embedding visualization, latency benchmarking, and chunking strategy comparison on arXiv abstracts.</p>
+                <div class="meta">OpenAI embeddings · t-SNE · FAISS · Latency benchmarks</div>
+            </div>
+            <div class="project-card reveal">
+                <span class="tag">LLM Classification</span>
+                <h3>LLM Document Classification</h3>
+                <p>GPT-4 Turbo zero-shot and few-shot classification of 500 documents. Cost analysis ($0.12/batch), confusion matrices, and comparison with traditional ML baselines.</p>
+                <div class="meta">GPT-4 Turbo · 500 docs · $0.12/batch · OpenAI API</div>
+            </div>
+            <div class="project-card reveal">
+                <span class="tag">Clinical NLP</span>
+                <h3>Clinical Trial Analysis</h3>
+                <p>500 real clinical trials from ClinicalTrials.gov API. Phase distribution, condition frequency, enrollment analysis, geographic spread, sponsor breakdown, and intervention types.</p>
+                <div class="meta">500 trials · ClinicalTrials.gov API · 6 figures</div>
+            </div>
+            <div class="project-card reveal">
+                <span class="tag">Legal NLP</span>
+                <h3>Congressional Bill Analysis</h3>
+                <p>496 real bills from the 118th Congress via Congress.gov API. Bill type distribution, chamber analysis, action timeline, title keyword extraction, and legislative activity patterns.</p>
+                <div class="meta">496 bills · Congress.gov API · 118th Congress</div>
+            </div>
+            <div class="project-card reveal">
+                <span class="tag">MLOps</span>
+                <h3>MLOps Model Registry</h3>
+                <p>Model training, versioning, and monitoring on 3,222 U.S. Census counties. Drift detection (PSI), A/B testing framework, performance monitoring, and automated registry management.</p>
+                <div class="meta">3,222 counties · Census ACS API · Drift + A/B testing</div>
+            </div>
+            <div class="project-card reveal">
+                <span class="tag">Legal Analytics</span>
+                <h3>SCOTUS Voting Analysis</h3>
+                <p>59 Supreme Court cases from the 2022 term with full justice voting records. Vote margin analysis, justice alignment matrices, opinion type distribution, and case timeline visualization.</p>
+                <div class="meta">59 cases · Oyez API · Justice voting records</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="gallery" class="section">
+    <div class="container">
+        <h2 class="section-title">Figure Gallery</h2>
+        <p class="section-subtitle">Selected analysis outputs from production notebooks</p>
+        <div class="gallery-grid">
+            <!-- arXiv -->
+            <div class="chart-box reveal"><img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-genai-engineering/main/projects/arxiv-classifier-research-engine/figures/category_distribution.png" alt="Category Distribution"><div class="chart-caption">Distribution of arXiv papers across computer science subfields — Machine Learning dominates with nearly half of all submissions</div></div>
+            <div class="chart-box reveal"><img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-genai-engineering/main/projects/arxiv-classifier-research-engine/figures/publication_timeline.png" alt="Timeline"><div class="chart-caption">Daily submission pattern for 450 recent arXiv papers across ML, AI, and NLP categories — most research hits the server mid-week</div></div>
+            <div class="chart-box reveal"><img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-genai-engineering/main/projects/arxiv-classifier-research-engine/figures/top_keywords.png" alt="Keywords"><div class="chart-caption">Most frequent terms extracted from 450 arXiv abstracts — "language," "framework," and "training" dominate current ML research discourse</div></div>
+            
+            <!-- PubMed -->
+            <div class="chart-box reveal"><img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-genai-engineering/main/projects/pubmed-research-engine/figures/journal_distribution.png" alt="Journals"><div class="chart-caption">Top journals publishing machine-learning-in-medicine research — PLOS ONE and IEEE lead the volume</div></div>
+            <div class="chart-box reveal"><img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-genai-engineering/main/projects/pubmed-research-engine/figures/mesh_terms.png" alt="MeSH"><div class="chart-caption">Medical Subject Headings (MeSH) extracted from PubMed abstracts — diseases and therapeutic approaches cluster tightly</div></div>
+            <div class="chart-box reveal"><img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-genai-engineering/main/projects/pubmed-research-engine/figures/abstract_length_distribution.png" alt="Abstract Length"><div class="chart-caption">Most biomedical abstracts fall between 150–300 words, with a long tail of longer review-style papers</div></div>
+            
+            <!-- SCOTUS Opinions -->
+            <div class="chart-box reveal"><img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-genai-engineering/main/projects/scotus-opinions/figures/vote_margins.png" <div class="chart-caption">How often Supreme Court decisions are unanimous vs. split — most cases land near consensus with occasional sharply divided rulings</div></div>
+            <div class="chart-box reveal"><img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-genai-engineering/main/projects/scotus-opinions/figures/topic_distribution.png" alt="Topics"><div class="chart-caption">Topic clusters from SCOTUS opinions — civil rights, criminal procedure, and administrative law occupy the bulk of the docket</div></div>
+            
+            <!-- Clinical Trials -->
+            <div class="chart-box reveal"><img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-genai-engineering/main/projects/nlp-clinical-trial-analysis/figures/phase_distribution.png" alt="Phases"><div class="chart-caption">Clinical trial phases from 500 active studies — Phase 2 dominates, showing where most therapies hit their first real test</div></div>
+            <div class="chart-box reveal"><img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-genai-engineering/main/projects/nlp-clinical-trial-analysis/figures/condition_frequency.png" alt="Conditions"><div class="chart-caption">Most studied conditions in active clinical trials — oncology and metabolic diseases lead research investment</div></div>
+            
+            <!-- Legal -->
+            <div class="chart-box reveal"><img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-genai-engineering/main/projects/nlp-legal-document-analysis/figures/bill_type_distribution.png" alt="Bill Types"><div class="chart-caption">496 House Concurrent Resolutions from the 118th Congress — the full corpus available from Congress.gov for this legislative session</div></div>
+            <div class="chart-box reveal"><img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-genai-engineering/main/projects/nlp-legal-document-analysis/figures/activity_timeline.png" alt="Timeline"><div class="chart-caption">Legislative action volume over time — spikes align with congressional session calendars and major bill pushes</div></div>
+            
+            <!-- MLOps -->
+            <div class="chart-box reveal"><img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-genai-engineering/main/projects/mlops-model-registry/figures/01_registry_versions.png" alt="Registry"><div class="chart-caption">Side-by-side model comparison — Random Forest outperforms Ridge on all three metrics: lower error, higher accuracy</div></div>
+            <div class="chart-box reveal"><img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-genai-engineering/main/projects/mlops-model-registry/figures/02_drift_detection.png" alt="Drift"><div class="chart-caption">Drift detection using Population Stability Index — monitors when incoming county data shifts enough to trigger retraining</div></div>
+            
+            <!-- SCOTUS Voting -->
+            <div class="chart-box reveal"><img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-genai-engineering/main/projects/nlp-supreme-court-opinion-analysis/figures/justice_alignment_matrix.png" <div class="chart-caption">How often justices vote together — reveals natural ideological clusters and swing-voter dynamics</div></div>
+            <div class="chart-box reveal"><img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-genai-engineering/main/projects/nlp-supreme-court-opinion-analysis/figures/vote_margin_distribution.png" <div class="chart-caption">Margin of victory distribution across 59 cases — shows whether the Court decides by narrow splits or broad consensus</div></div>
+            
+            <!-- RAG -->
+            <div class="chart-box reveal"><img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-genai-engineering/main/projects/rag-knowledge-base/figures/tsne_embeddings.png" alt="t-SNE"><div class="chart-caption">t-SNE projection of document embeddings — similar papers cluster together, validating the retrieval quality of the RAG pipeline</div></div>
+            
+            <!-- LLM -->
+            <div class="chart-box reveal"><img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-genai-engineering/main/projects/llm-document-classification/figures/confusion_matrix_rf.png" alt="Confusion Matrix"><div class="chart-caption">Random Forest classification accuracy across four document types — strongest on Medical Research and Scientific Papers</div></div>
+        </div>
+    </div>
+</section>
+
+<section id="data" class="section">
+    <div class="container">
+        <h2 class="section-title">Data Sources</h2>
+        <p class="section-subtitle">All datasets are real, public, and verifiable</p>
+        <table class="data-table">
+            <thead>
+                <tr><th>Dataset</th><th>Source</th><th>Records</th><th>License</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>arXiv Abstracts</td><td><a href="https://arxiv.org/help/api">arXiv API</a></td><td>2,646 abstracts</td><td>CC0</td></tr>
+                <tr><td>PubMed Abstracts</td><td><a href="https://www.ncbi.nlm.nih.gov/books/NBK25500/">NCBI E-utilities</a></td><td>500 abstracts</td><td>Public Domain</td></tr>
+                <tr><td>SCOTUS Opinions</td><td><a href="https://www.courtlistener.com/api/">CourtListener</a></td><td>~900 opinions</td><td>Public Domain</td></tr>
+                <tr><td>Clinical Trials</td><td><a href="https://clinicaltrials.gov/data-api/about">ClinicalTrials.gov API v2</a></td><td>500 trials</td><td>Public Domain</td></tr>
+                <tr><td>Congress Bills</td><td><a href="https://api.congress.gov/">Congress.gov API v3</a></td><td>496 bills (118th Congress)</td><td>Public Domain</td></tr>
+                <tr><td>U.S. Census ACS</td><td><a href="https://www.census.gov/data/developers/data-sets/acs-5year.html">Census ACS 5-Year API</a></td><td>3,222 counties</td><td>Public Domain</td></tr>
+                <tr><td>SCOTUS Cases</td><td><a href="https://api.oyez.org/">Oyez API</a></td><td>59 cases (2022 term)</td><td>Public Domain</td></tr>
+                <tr><td>20 Newsgroups</td><td><a href="http://qwone.com/~jason/20Newsgroups/">CMU</a></td><td>11,314 docs</td><td>Public Domain</td></tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<section id="tech" class="section">
+    <div class="container">
+        <h2 class="section-title">Tech Stack</h2>
+        <p class="section-subtitle">Tools and libraries used across all projects</p>
+        <div class="tech-grid">
+            <div class="tech-item">Python 3.11</div>
+            <div class="tech-item">OpenAI API</div>
+            <div class="tech-item">scikit-learn</div>
+            <div class="tech-item">sentence-transformers</div>
+            <div class="tech-item">FAISS</div>
+            <div class="tech-item">t-SNE</div>
+            <div class="tech-item">spaCy</div>
+            <div class="tech-item">NLTK</div>
+            <div class="tech-item">pandas</div>
+            <div class="tech-item">matplotlib</div>
+            <div class="tech-item">seaborn</div>
+            <div class="tech-item">Jupyter</div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <div class="social">
+            <a href="https://github.com/gosidehustlesisi">GitHub</a>
+            <a href="https://www.linkedin.com/in/sierranapier/">LinkedIn</a>
+            <a href="mailto:sierra.napier@e3-ai.com">Email</a>
+        </div>
+        <p>Built with real data. No synthetic shortcuts.</p>
+    </div>
+</footer>
+
+<a href="mailto:sierra.napier@e3-ai.com" class="floating-cta">Contact Sierra →</a>
+
+<script>
+(function() {
+    const overlay = document.createElement('div');
+    overlay.className = 'lightbox-overlay';
+    overlay.innerHTML = '<div class="lightbox-close">&times;</div><img class="lightbox-img" src="" alt="">';
+    document.body.appendChild(overlay);
+    const lightboxImg = overlay.querySelector('.lightbox-img');
+    overlay.querySelector('.lightbox-close').addEventListener('click', () => overlay.classList.remove('active'));
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.classList.remove('active'); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') overlay.classList.remove('active'); });
+    document.querySelectorAll('.chart-box img').forEach(img => {
+        img.addEventListener('click', () => { lightboxImg.src = img.src; overlay.classList.add('active'); });
+    });
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    setTimeout(() => { document.querySelectorAll('.reveal:not(.visible)').forEach(el => el.classList.add('visible')); }, 3000);
+})();
+</script>
+
+</body>
+</html>
+<!-- Auto-deploy trigger -->

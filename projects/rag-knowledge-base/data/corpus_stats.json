@@ -1,0 +1,54 @@
+{
+  "total_docs": 2646,
+  "unique_categories": 125,
+  "avg_length": 182.02910052910053,
+  "median_length": 182.0,
+  "std_length": 43.19886147079705,
+  "min_length": 34,
+  "max_length": 299,
+  "top_categories": [
+    [
+      "cs.LG",
+      1032
+    ],
+    [
+      "cs.AI",
+      767
+    ],
+    [
+      "cs.CV",
+      527
+    ],
+    [
+      "cs.CL",
+      512
+    ],
+    [
+      "stat.ML",
+      500
+    ],
+    [
+      "stat.ME",
+      96
+    ],
+    [
+      "cs.CR",
+      84
+    ],
+    [
+      "cs.RO",
+      77
+    ],
+    [
+      "math.OC",
+      74
+    ],
+    [
+      "math.ST",
+      73
+    ]
+  ],
+  "year_distribution": {
+    "2026": 2646
+  }
+}

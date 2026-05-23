@@ -1,0 +1,22 @@
+{
+  "fetch_date": "2026-05-21T06:01:03.776784",
+  "api": "Oyez API",
+  "url": "https://api.oyez.org/",
+  "term": "2022",
+  "total_cases": 59,
+  "justices_observed": [
+    "Amy Coney Barrett",
+    "Brett M. Kavanaugh",
+    "Clarence Thomas",
+    "Elena Kagan",
+    "John G. Roberts, Jr.",
+    "Ketanji Brown Jackson",
+    "Neil Gorsuch",
+    "Samuel A. Alito, Jr.",
+    "Sonia Sotomayor"
+  ],
+  "date_range": {
+    "earliest_argued": "2022-10-03T13:00:00",
+    "latest_decided": "2023-06-30T13:00:00"
+  }
+}

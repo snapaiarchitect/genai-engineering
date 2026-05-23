@@ -1,0 +1,135 @@
+name: Execute Notebooks on Push
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+  workflow_dispatch:
+
+jobs:
+  execute-notebooks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+          cache: 'pip'
+
+      - name: Install core execution dependencies
+        run: |
+          pip install --upgrade pip
+          pip install papermill jupyter nbformat nbconvert pandas matplotlib seaborn plotly
+
+      - name: Install repo-specific dependencies
+        run: |
+          if [ -f requirements.txt ]; then
+            echo "Found requirements.txt, installing..."
+            pip install -r requirements.txt
+          fi
+          if [ -f pyproject.toml ]; then
+            echo "Found pyproject.toml, installing..."
+            pip install -e . || pip install . || echo "pyproject.toml install failed, continuing"
+          fi
+
+      - name: Execute all notebooks
+        id: execute
+        env:
+          TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
+          CENSUS_API_KEY: ${{ secrets.CENSUS_API_KEY }}
+        run: |
+          NOTEBOOKS=$(find . -name "*.ipynb" -not -path "*/.git/*" -not -path "*/site-packages/*" | sort)
+          
+          if [ -z "$NOTEBOOKS" ]; then
+            echo "No notebooks found"
+            echo "notebooks_found=0" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          
+          TOTAL=$(echo "$NOTEBOOKS" | wc -l)
+          PASSED=0
+          FAILED=0
+          FAILED_LIST=""
+          
+          echo "Found $TOTAL notebooks to execute"
+          echo "notebooks_found=$TOTAL" >> $GITHUB_OUTPUT
+          
+          for notebook in $NOTEBOOKS; do
+            echo ""
+            echo "=========================================="
+            echo "Executing: $notebook"
+            echo "=========================================="
+            
+            OUTPUT_DIR=$(dirname "$notebook")
+            mkdir -p "$OUTPUT_DIR"
+            
+            if papermill \
+              --log-output \
+              --no-progress-bar \
+              --stdout-file /dev/null \
+              --stderr-file /dev/null \
+              "$notebook" \
+              "$notebook" \
+              2>&1; then
+              echo "✅ PASSED: $notebook"
+              PASSED=$((PASSED + 1))
+            else
+              echo "❌ FAILED: $notebook"
+              FAILED=$((FAILED + 1))
+              FAILED_LIST="$FAILED_LIST\n- $notebook"
+            fi
+          done
+          
+          echo ""
+          echo "=========================================="
+          echo "EXECUTION SUMMARY"
+          echo "=========================================="
+          echo "Total: $TOTAL"
+          echo "Passed: $PASSED"
+          echo "Failed: $FAILED"
+          
+          echo "notebooks_passed=$PASSED" >> $GITHUB_OUTPUT
+          echo "notebooks_failed=$FAILED" >> $GITHUB_OUTPUT
+          echo "failed_list=$FAILED_LIST" >> $GITHUB_OUTPUT
+          
+          if [ $FAILED -gt 0 ]; then
+            echo ""
+            echo "Failed notebooks:"
+            echo -e "$FAILED_LIST"
+            exit 1
+          fi
+
+      - name: Upload executed notebooks as artifacts
+        if: always() && steps.execute.outputs.notebooks_found > 0
+        uses: actions/upload-artifact@v4
+        with:
+          name: executed-notebooks-${{ github.run_id }}
+          path: '**/*.ipynb'
+          retention-days: 7
+
+      - name: Report status
+        if: always()
+        run: |
+          echo "## Notebook Execution Report" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Metric | Value |" >> $GITHUB_STEP_SUMMARY
+          echo "|---|---|" >> $GITHUB_STEP_SUMMARY
+          echo "| Notebooks Found | ${{ steps.execute.outputs.notebooks_found }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Passed | ${{ steps.execute.outputs.notebooks_passed }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Failed | ${{ steps.execute.outputs.notebooks_failed }} |" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          if [ "${{ steps.execute.outputs.notebooks_failed }}" -gt 0 ]; then
+            echo "### ❌ Failed Notebooks" >> $GITHUB_STEP_SUMMARY
+            echo "${{ steps.execute.outputs.failed_list }}" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "Download artifacts for debugging." >> $GITHUB_STEP_SUMMARY
+          else
+            echo "### ✅ All notebooks executed successfully" >> $GITHUB_STEP_SUMMARY
+          fi

@@ -1,0 +1,12 @@
+{
+  "model": "random_forest",
+  "accuracy": 0.8608247422680413,
+  "f1_macro": 0.7975566723695466,
+  "f1_weighted": 0.8440881491802845,
+  "per_class_f1": {
+    "financial": 0.5,
+    "legal": 0.875,
+    "medical": 0.9580838323353293,
+    "scientific": 0.8571428571428571
+  }
+}

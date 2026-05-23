@@ -1,0 +1,11 @@
+requests
+pandas
+numpy
+sentence-transformers
+faiss-cpu
+transformers
+torch
+streamlit
+scikit-learn
+matplotlib
+seaborn

@@ -1,0 +1,98 @@
+[
+  {
+    "gene": "BRCA1",
+    "cancer_type": "Breast",
+    "expression_fold_change": 2.4,
+    "p_value": 0.003,
+    "n_samples": 523,
+    "year": 2018
+  },
+  {
+    "gene": "TP53",
+    "cancer_type": "Multi",
+    "expression_fold_change": 3.1,
+    "p_value": 0.001,
+    "n_samples": 1204,
+    "year": 2017
+  },
+  {
+    "gene": "EGFR",
+    "cancer_type": "Lung",
+    "expression_fold_change": 1.8,
+    "p_value": 0.02,
+    "n_samples": 890,
+    "year": 2019
+  },
+  {
+    "gene": "KRAS",
+    "cancer_type": "Pancreatic",
+    "expression_fold_change": 4.2,
+    "p_value": 0.001,
+    "n_samples": 456,
+    "year": 2016
+  },
+  {
+    "gene": "HER2",
+    "cancer_type": "Breast",
+    "expression_fold_change": 5.6,
+    "p_value": 0.0001,
+    "n_samples": 1023,
+    "year": 2015
+  },
+  {
+    "gene": "ALK",
+    "cancer_type": "Lung",
+    "expression_fold_change": 2.9,
+    "p_value": 0.005,
+    "n_samples": 334,
+    "year": 2014
+  },
+  {
+    "gene": "BRAF",
+    "cancer_type": "Melanoma",
+    "expression_fold_change": 3.7,
+    "p_value": 0.001,
+    "n_samples": 612,
+    "year": 2016
+  },
+  {
+    "gene": "PIK3CA",
+    "cancer_type": "Breast",
+    "expression_fold_change": 1.9,
+    "p_value": 0.04,
+    "n_samples": 789,
+    "year": 2018
+  },
+  {
+    "gene": "PTEN",
+    "cancer_type": "Prostate",
+    "expression_fold_change": 0.4,
+    "p_value": 0.001,
+    "n_samples": 445,
+    "year": 2017
+  },
+  {
+    "gene": "MYC",
+    "cancer_type": "Lymphoma",
+    "expression_fold_change": 6.2,
+    "p_value": 0.001,
+    "n_samples": 567,
+    "year": 2015
+  },
+  {
+    "gene": "VEGF",
+    "cancer_type": "Colorectal",
+    "expression_fold_change": 2.1,
+    "p_value": 0.01,
+    "n_samples": 678,
+    "year": 2019
+  },
+  {
+    "gene": "PD-L1",
+    "cancer_type": "NSCLC",
+    "expression_fold_change": 3.4,
+    "p_value": 0.002,
+    "n_samples": 445,
+    "year": 2018
+  }
+]

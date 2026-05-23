@@ -1,0 +1,82 @@
+[
+  {
+    "query": "What is attention mechanism?",
+    "retrieval_ms": 5329.3,
+    "rerank_ms": 12546.8,
+    "total_ms": 17876.1,
+    "top_doc": "Learning to See What You Need: Gaze Attention for Multimodal Large Language Models",
+    "top_confidence": 1.7117
+  },
+  {
+    "query": "How does BERT work?",
+    "retrieval_ms": 5110.2,
+    "rerank_ms": 11931.6,
+    "total_ms": 17041.8,
+    "top_doc": "Explainable Detection of Depression Status Shifts from User Digital Traces",
+    "top_confidence": -0.7614
+  },
+  {
+    "query": "Explain CNN architectures",
+    "retrieval_ms": 5349.0,
+    "rerank_ms": 12312.7,
+    "total_ms": 17661.7,
+    "top_doc": "Can Visual Mamba Improve AI-Generated Image Detection? An In-Depth Investigation",
+    "top_confidence": 1.6523
+  },
+  {
+    "query": "What is data augmentation?",
+    "retrieval_ms": 5220.5,
+    "rerank_ms": 12032.9,
+    "total_ms": 17253.4,
+    "top_doc": "Trajectory-Level Data Augmentation for Offline Reinforcement Learning",
+    "top_confidence": 6.4353
+  },
+  {
+    "query": "Describe gradient descent optimization",
+    "retrieval_ms": 5328.5,
+    "rerank_ms": 11975.1,
+    "total_ms": 17303.6,
+    "top_doc": "Optimal Asymptotic Rates for (Stochastic) Gradient Descent under the Local PL-Condition: A Geometric Approach",
+    "top_confidence": 4.0457
+  },
+  {
+    "query": "What are large language models?",
+    "retrieval_ms": 5166.1,
+    "rerank_ms": 12378.6,
+    "total_ms": 17544.7,
+    "top_doc": "SOMA: Efficient Multi-turn LLM Serving via Small Language Model",
+    "top_confidence": 7.5512
+  },
+  {
+    "query": "Explain reinforcement learning",
+    "retrieval_ms": 5231.9,
+    "rerank_ms": 11126.7,
+    "total_ms": 16358.6,
+    "top_doc": "Quantifying Potential Observation Missingness in Inverse Reinforcement Learning",
+    "top_confidence": 5.1859
+  },
+  {
+    "query": "What is computer vision?",
+    "retrieval_ms": 5558.7,
+    "rerank_ms": 13206.0,
+    "total_ms": 18764.7,
+    "top_doc": "Vision-Based Water Level and Flow Estimation",
+    "top_confidence": 0.2764
+  },
+  {
+    "query": "How do neural networks work?",
+    "retrieval_ms": 5145.9,
+    "rerank_ms": 11216.7,
+    "total_ms": 16362.6,
+    "top_doc": "Beyond Oversquashing: Understanding Signal Propagation in GNNs Via Observables",
+    "top_confidence": 3.4996
+  },
+  {
+    "query": "What is natural language processing?",
+    "retrieval_ms": 5192.1,
+    "rerank_ms": 11794.5,
+    "total_ms": 16986.6,
+    "top_doc": "Rethinking Layer Relevance in Large Language Models Beyond Cosine Similarity",
+    "top_confidence": 0.8824
+  }
+]

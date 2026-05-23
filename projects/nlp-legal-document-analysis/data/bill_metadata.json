@@ -1,0 +1,14 @@
+{
+  "fetch_date": "2026-05-21T05:52:40.178327",
+  "api": "Congress.gov API v3",
+  "url": "https://api.congress.gov/v3/bill",
+  "api_key": "DEMO_KEY",
+  "total_records": 496,
+  "congress": 110,
+  "bill_types": {
+    "HCONRES": 496
+  },
+  "chambers": {
+    "House": 496
+  }
+}

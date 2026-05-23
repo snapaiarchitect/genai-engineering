@@ -1,0 +1,12 @@
+{
+  "model": "logistic_regression",
+  "accuracy": 0.9123711340206185,
+  "f1_macro": 0.8874525250322557,
+  "f1_weighted": 0.9080600519351278,
+  "per_class_f1": {
+    "financial": 0.7307692307692307,
+    "legal": 0.9411764705882353,
+    "medical": 0.9759036144578314,
+    "scientific": 0.9019607843137255
+  }
+}
