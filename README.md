@@ -53,6 +53,12 @@
 
 ---
 
+## 🚀 Live Portfolio
+
+**[👉 goaiarchitect.io](https://goaiarchitect.io)** — Explore the full interactive portfolio with all projects, dashboards, and visualizations.
+
+---
+
 ## About This Work
 
 I don't just analyze text. I build the pipelines that process it, index it, and serve it.
