@@ -95,13 +95,13 @@ RAG is the difference between a chatbot that hallucinates and one that cites sou
 ### Key Figures
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-genai-engineering/main/projects/rag-knowledge-base/figures/category_distribution.png" width="48%" alt="Category Distribution" />
-  <img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-genai-engineering/main/projects/rag-knowledge-base/figures/abstract_length_distribution.png" width="48%" alt="Abstract Length Distribution" />
+  <img src="https://raw.githubusercontent.com/snapaiarchitect/genai-engineering/main/projects/rag-knowledge-base/figures/category_distribution.png" width="48%" alt="Category Distribution" />
+  <img src="https://raw.githubusercontent.com/snapaiarchitect/genai-engineering/main/projects/rag-knowledge-base/figures/abstract_length_distribution.png" width="48%" alt="Abstract Length Distribution" />
 </p>
 <p align="center"><em>Peak insight: cs.LG dominates the corpus (1,032 abstracts) — reflecting the field's central obsession with general learning methods over narrow applications.</em></p>
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-genai-engineering/main/projects/rag-knowledge-base/figures/tsne_embeddings.png" width="70%" alt="t-SNE Embeddings" />
+  <img src="https://raw.githubusercontent.com/snapaiarchitect/genai-engineering/main/projects/rag-knowledge-base/figures/tsne_embeddings.png" width="70%" alt="t-SNE Embeddings" />
 </p>
 <p align="center"><em>Peak insight: t-SNE visualization shows clear category clustering in 384-dim embedding space — proof the semantic index actually captures research domain boundaries.</em></p>
 
@@ -164,13 +164,13 @@ Not every NLP problem needs a neural network. I demonstrate when classical ML ou
 ### Key Figures
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-genai-engineering/main/projects/llm-document-classification/figures/class_distribution.png" width="48%" alt="Class Distribution" />
-  <img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-genai-engineering/main/projects/llm-document-classification/figures/classification_performance.png" width="48%" alt="Classification Performance" />
+  <img src="https://raw.githubusercontent.com/snapaiarchitect/genai-engineering/main/projects/llm-document-classification/figures/class_distribution.png" width="48%" alt="Class Distribution" />
+  <img src="https://raw.githubusercontent.com/snapaiarchitect/genai-engineering/main/projects/llm-document-classification/figures/classification_performance.png" width="48%" alt="Classification Performance" />
 </p>
 <p align="center"><em>Peak insight: Medical abstracts achieve 0.976 F1 — the clearest linguistic signal in the corpus — while financial documents at 0.731 reveal the hardest boundary (legal and financial language overlap significantly in Wikipedia sources).</em></p>
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-genai-engineering/main/projects/llm-document-classification/figures/confusion_matrix_rf.png" width="60%" alt="Confusion Matrix" />
+  <img src="https://raw.githubusercontent.com/snapaiarchitect/genai-engineering/main/projects/llm-document-classification/figures/confusion_matrix_rf.png" width="60%" alt="Confusion Matrix" />
 </p>
 <p align="center"><em>Peak insight: Random Forest confusion matrix shows medical abstracts are nearly perfectly separable, while scientific/financial confusion drives the bulk of misclassification — exactly the pattern you'd expect from TF-IDF on domain-overlapping vocabulary.</em></p>
 
@@ -229,13 +229,13 @@ Technical teams need to stay current. I built an automated system that watches r
 ### Key Figures
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-genai-engineering/main/projects/arxiv-classifier-research-engine/figures/publication_timeline.png" width="48%" alt="Publication Timeline" />
-  <img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-genai-engineering/main/projects/arxiv-classifier-research-engine/figures/category_distribution.png" width="48%" alt="Category Distribution" />
+  <img src="https://raw.githubusercontent.com/snapaiarchitect/genai-engineering/main/projects/arxiv-classifier-research-engine/figures/publication_timeline.png" width="48%" alt="Publication Timeline" />
+  <img src="https://raw.githubusercontent.com/snapaiarchitect/genai-engineering/main/projects/arxiv-classifier-research-engine/figures/category_distribution.png" width="48%" alt="Category Distribution" />
 </p>
 <p align="center"><em>Peak insight: cs.LG shows +23% YoY growth — the strongest signal that general machine learning (not narrow application domains) is where researcher attention and publication volume are concentrating.</em></p>
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-genai-engineering/main/projects/arxiv-classifier-research-engine/figures/top_keywords.png" width="70%" alt="Top Keywords" />
+  <img src="https://raw.githubusercontent.com/snapaiarchitect/genai-engineering/main/projects/arxiv-classifier-research-engine/figures/top_keywords.png" width="70%" alt="Top Keywords" />
 </p>
 <p align="center"><em>Peak insight: "transformer" dominates 34% of abstracts across all categories — proof that the architecture has become the universal substrate of ML research, not just NLP.</em></p>
 
@@ -290,13 +290,13 @@ Healthcare and pharma teams need evidence synthesis at speed. I built the pipeli
 ### Key Figures
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-genai-engineering/main/projects/pubmed-research/figures/biomarker_volcano.png" width="48%" alt="Biomarker Volcano Plot" />
-  <img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-genai-engineering/main/projects/pubmed-research/figures/trial_timeline.png" width="48%" alt="Trial Timeline" />
+  <img src="https://raw.githubusercontent.com/snapaiarchitect/genai-engineering/main/projects/pubmed-research/figures/biomarker_volcano.png" width="48%" alt="Biomarker Volcano Plot" />
+  <img src="https://raw.githubusercontent.com/snapaiarchitect/genai-engineering/main/projects/pubmed-research/figures/trial_timeline.png" width="48%" alt="Trial Timeline" />
 </p>
 <p align="center"><em>Peak insight: Biomarker volcano plot reveals which immune markers show strongest association with clinical response — the kind of signal that guides precision medicine trial design.</em></p>
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-genai-engineering/main/projects/pubmed-research/figures/epidemiology_scatter.png" width="70%" alt="Epidemiology Scatter" />
+  <img src="https://raw.githubusercontent.com/snapaiarchitect/genai-engineering/main/projects/pubmed-research/figures/epidemiology_scatter.png" width="70%" alt="Epidemiology Scatter" />
 </p>
 <p align="center"><em>Peak insight: Epidemiology scatter shows burden-response relationships across trial populations — revealing which patient subgroups drive the strongest treatment effects.</em></p>
 
@@ -350,13 +350,13 @@ Legal tech, compliance, and policy teams need NLP systems that understand domain
 ### Key Figures
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-genai-engineering/main/projects/scotus-opinions/figures/vote_margins.png" width="48%" alt="Vote Margins" />
-  <img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-genai-engineering/main/projects/scotus-opinions/figures/topic_distribution.png" width="48%" alt="Topic Distribution" />
+  <img src="https://raw.githubusercontent.com/snapaiarchitect/genai-engineering/main/projects/scotus-opinions/figures/vote_margins.png" width="48%" alt="Vote Margins" />
+  <img src="https://raw.githubusercontent.com/snapaiarchitect/genai-engineering/main/projects/scotus-opinions/figures/topic_distribution.png" width="48%" alt="Topic Distribution" />
 </p>
 <p align="center"><em>Peak insight: Vote margin distribution reveals how consensus breaks down across issue domains — unanimous decisions cluster on procedural matters while 5-4 splits concentrate on constitutional rights.</em></p>
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-genai-engineering/main/projects/scotus-opinions/figures/opinion_length_timeline.png" width="70%" alt="Opinion Length Timeline" />
+  <img src="https://raw.githubusercontent.com/snapaiarchitect/genai-engineering/main/projects/scotus-opinions/figures/opinion_length_timeline.png" width="70%" alt="Opinion Length Timeline" />
 </p>
 <p align="center"><em>Peak insight: Opinion length has grown 40% since 2000 — a proxy for increasing doctrinal complexity that any legal NLP system must account for in chunking and retrieval strategies.</em></p>
 
@@ -484,7 +484,7 @@ Most candidates can train a model. Few can tell you what happens when it drifts 
 
 ```bash
 # Clone
- git clone https://github.com/gosidehustlesisi/sierra-genai-engineering.git
+ git clone https://github.com/snapaiarchitect/genai-engineering.git
  cd sierra-genai-engineering
 
 # Install dependencies
