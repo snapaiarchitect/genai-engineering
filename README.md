@@ -585,4 +585,23 @@ sierra-genai-engineering/
 - 🐙 GitHub: [github.com/snapaiarchitect](https://github.com/snapaiarchitect)
 - 📧 Inquiries: Contact via LinkedIn or portfolio site
 
+### 🐳 Docker (One-Command Launch)
+
+```bash
+git clone https://github.com/snapaiarchitect/genai-engineering.git
+cd genai-engineering
+docker compose up
+```
+
+| Dashboard | URL |
+|-----------|-----|
+| RAG Knowledge Base | http://localhost:8531 |
+| LLM Document Classification | http://localhost:8532 |
+| arXiv Research Engine | http://localhost:8533 |
+| PubMed Research Engine | http://localhost:8534 |
+| Clinical Trial Analysis | http://localhost:8535 |
+| Congressional Bill Analysis | http://localhost:8536 |
+| SCOTUS Opinions | http://localhost:8537 |
+| MLOps Model Registry | http://localhost:8538 |
+
 > **Built with real data. Documented. Deployable.**
