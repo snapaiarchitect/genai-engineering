@@ -1,0 +1,37 @@
+# Git
+.git
+.gitignore
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.env
+.venv
+venv/
+
+# Data (mounted via volume)
+data/raw/*.csv
+data/raw/*.parquet
+data/raw/*.zip
+data/raw/*.json
+
+# Notebooks (not needed for dashboards)
+notebooks/
+*.ipynb
+
+# Docs
+_docs/
+docs/
+*.md
+
+# Figures (mounted via volume)
+figures/
+
+# Tests
+tests/
+.pytest_cache/
+
+# CI
+.github/

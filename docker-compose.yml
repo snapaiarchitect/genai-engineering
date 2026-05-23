@@ -1,0 +1,114 @@
+version: '3.8'
+services:
+  rag-kb:
+    build: .
+    command: streamlit run projects/rag-knowledge-base/dashboard.py --server.port=8531 --server.address=0.0.0.0
+    ports:
+      - "8531:8531"
+    volumes:
+      - ./:/app
+    environment:
+      - PYTHONUNBUFFERED=1
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8531/_stcore/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+  llm-classify:
+    build: .
+    command: streamlit run projects/llm-document-classification/dashboard.py --server.port=8532 --server.address=0.0.0.0
+    ports:
+      - "8532:8532"
+    volumes:
+      - ./:/app
+    environment:
+      - PYTHONUNBUFFERED=1
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8532/_stcore/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+  arxiv-engine:
+    build: .
+    command: streamlit run projects/arxiv-classifier-research-engine/src/dashboard.py --server.port=8533 --server.address=0.0.0.0
+    ports:
+      - "8533:8533"
+    volumes:
+      - ./:/app
+    environment:
+      - PYTHONUNBUFFERED=1
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8533/_stcore/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+  pubmed-engine:
+    build: .
+    command: streamlit run projects/pubmed-research-engine/src/dashboard.py --server.port=8534 --server.address=0.0.0.0
+    ports:
+      - "8534:8534"
+    volumes:
+      - ./:/app
+    environment:
+      - PYTHONUNBUFFERED=1
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8534/_stcore/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+  clinical-trials:
+    build: .
+    command: streamlit run projects/nlp-clinical-trial-analysis/src/dashboard.py --server.port=8535 --server.address=0.0.0.0
+    ports:
+      - "8535:8535"
+    volumes:
+      - ./:/app
+    environment:
+      - PYTHONUNBUFFERED=1
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8535/_stcore/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+  congress-bills:
+    build: .
+    command: streamlit run projects/nlp-congressional-bill-analysis/src/dashboard.py --server.port=8536 --server.address=0.0.0.0
+    ports:
+      - "8536:8536"
+    volumes:
+      - ./:/app
+    environment:
+      - PYTHONUNBUFFERED=1
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8536/_stcore/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+  scotus-opinions:
+    build: .
+    command: streamlit run projects/nlp-supreme-court-opinion-analysis/src/dashboard.py --server.port=8537 --server.address=0.0.0.0
+    ports:
+      - "8537:8537"
+    volumes:
+      - ./:/app
+    environment:
+      - PYTHONUNBUFFERED=1
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8537/_stcore/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+  mlops-registry:
+    build: .
+    command: streamlit run projects/mlops-model-registry/src/dashboard.py --server.port=8538 --server.address=0.0.0.0
+    ports:
+      - "8538:8538"
+    volumes:
+      - ./:/app
+    environment:
+      - PYTHONUNBUFFERED=1
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8538/_stcore/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
