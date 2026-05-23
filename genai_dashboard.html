@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GenAI Research Intelligence Dashboard</title>
+<script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+<style>
+:root{--bg:#0f1115;--surface:#1a2234;--border:#1f2d44;--text:#f0f0f0;--muted:#94a3b8;--accent:#8b5cf6;}
+*{margin:0;padding:0;box-sizing:border-box;}body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);padding:2rem;}
+h1{text-align:center;margin-bottom:0.5rem;}p.subtitle{text-align:center;color:var(--muted);margin-bottom:2rem;}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(450px,1fr));gap:1.5rem;}
+.chart{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1rem;}
+.chart h3{font-size:1rem;margin-bottom:0.5rem;color:var(--accent);}
+.loading{color:var(--muted);font-size:0.9rem;text-align:center;padding:2rem;}
+</style>
+</head>
+<body>
+<h1>🤖 GenAI Research Intelligence</h1>
+<p class="subtitle">Real-time analytics on arXiv, PubMed, and Congressional data</p>
+<div class="grid">
+<div class="chart"><h3>arXiv Papers by Category</h3><div id="arxiv-cat" class="loading">Loading...</div></div>
+<div class="chart"><h3>PubMed Journal Distribution</h3><div id="pubmed-journal" class="loading">Loading...</div></div>
+<div class="chart"><h3>Congress Bills by Type</h3><div id="congress-type" class="loading">Loading...</div></div>
+<div class="chart"><h3>Clinical Trial Phases</h3><div id="clinical-phase" class="loading">Loading...</div></div>
+<div class="chart"><h3>arXiv Publication Timeline</h3><div id="arxiv-timeline" class="loading">Loading...</div></div>
+<div class="chart"><h3>SCOTUS Cases by Term</h3><div id="scotus-term" class="loading">Loading...</div></div>
+</div>
+
+<script>
+const layout={paper_bgcolor:'rgba(0,0,0,0)',plot_bgcolor:'rgba(0,0,0,0)',font:{color:'#f0f0f0',family:'Inter,sans-serif'},margin:{t:30,r:20,b:50,l:60}};
+const config={responsive:true,displayModeBar:false};
+
+// arXiv by Category
+Papa.parse('https://raw.githubusercontent.com/gosidehustlesisi/sierra-genai-engineering/main/projects/arxiv-classifier-research-engine/data/arxiv_papers.csv',{download:true,header:true,complete:function(r){
+const cats={};r.data.forEach(d=>{if(d.category)cats[d.category]=(cats[d.category]||0)+1;});
+const sorted=Object.entries(cats).sort((a,b)=>b[1]-a[1]).slice(0,10);
+Plotly.newPlot('arxiv-cat',[{
+  x:sorted.map(x=>x[0]),y:sorted.map(x=>x[1]),type:'bar',
+  marker:{color:'#8b5cf6',line:{color:'#a78bfa',width:1}}
+}],{...layout,xaxis:{tickangle:-45},yaxis:{title:'Papers'}},config);
+}});
+
+// PubMed Journal Distribution
+Papa.parse('https://raw.githubusercontent.com/gosidehustlesisi/sierra-genai-engineering/main/projects/pubmed-research-engine/data/pubmed_abstracts.csv',{download:true,header:true,complete:function(r){
+const journals={};r.data.forEach(d=>{if(d.journal)journals[d.journal]=(journals[d.journal]||0)+1;});
+const sorted=Object.entries(journals).sort((a,b)=>b[1]-a[1]).slice(0,12);
+Plotly.newPlot('pubmed-journal',[{
+  labels:sorted.map(x=>x[0]),values:sorted.map(x=>x[1]),type:'pie',
+  hole:0.4,marker:{colors:['#8b5cf6','#a78bfa','#c4b5fd','#7c3aed','#6d28d9','#5b21b6','#4c1d95','#ddd6fe','#ede9fe','#f5f3ff','#2e1065','#1e1b4b']}
+}],{...layout},config);
+}});
+
+// Congress Bills by Type
+Papa.parse('https://raw.githubusercontent.com/gosidehustlesisi/sierra-genai-engineering/main/projects/nlp-legal-document-analysis/data/congress_bills.csv',{download:true,header:true,complete:function(r){
+const types={};r.data.forEach(d=>{if(d.bill_type)types[d.bill_type]=(types[d.bill_type]||0)+1;});
+Plotly.newPlot('congress-type',[{
+  x:Object.keys(types),y:Object.values(types),type:'bar',
+  marker:{color:'#06b6d4',line:{color:'#22d3ee',width:1}}
+}],{...layout,xaxis:{tickangle:-45},yaxis:{title:'Bills'}},config);
+}});
+
+// Clinical Trial Phases
+Papa.parse('https://raw.githubusercontent.com/gosidehustlesisi/sierra-genai-engineering/main/projects/nlp-clinical-trial-analysis/data/clinical_trials.csv',{download:true,header:true,complete:function(r){
+const phases={};r.data.forEach(d=>{if(d.phase)phases[d.phase]=(phases[d.phase]||0)+1;});
+Plotly.newPlot('clinical-phase',[{
+  x:Object.keys(phases),y:Object.values(phases),type:'bar',
+  marker:{color:'#10b981',line:{color:'#34d399',width:1}}
+}],{...layout,xaxis:{title:'Phase'},yaxis:{title:'Trials'}},config);
+}});
+
+// arXiv Timeline
+Papa.parse('https://raw.githubusercontent.com/gosidehustlesisi/sierra-genai-engineering/main/projects/arxiv-classifier-research-engine/data/arxiv_papers.csv',{download:true,header:true,complete:function(r){
+const dates={};r.data.forEach(d=>{if(d.published){const dt=d.published.split('T')[0];if(dt.startsWith('2026')){const m=dt.substring(5,7);dates[m]=(dates[m]||0)+1;}}});
+const months=['01','02','03','04','05','06'];const labels=['Jan','Feb','Mar','Apr','May','Jun'];
+Plotly.newPlot('arxiv-timeline',[{
+  x:labels,y:months.map(m=>dates[m]||0),type:'scatter',mode:'lines+markers',
+  line:{color:'#f59e0b',width:3},marker:{size:8,color:'#f59e0b'}
+}],{...layout,xaxis:{title:'Month 2026'},yaxis:{title:'Papers'}},config);
+}});
+
+// SCOTUS Cases
+Papa.parse('https://raw.githubusercontent.com/gosidehustlesisi/sierra-genai-engineering/main/projects/nlp-supreme-court-opinion-analysis/data/scotus_cases.csv',{download:true,header:true,complete:function(r){
+const terms={};r.data.forEach(d=>{if(d.term)terms[d.term]=(terms[d.term]||0)+1;});
+Plotly.newPlot('scotus-term',[{
+  x:Object.keys(terms).sort(),y:Object.values(terms),type:'bar',
+  marker:{color:'#ef4444',line:{color:'#f87171',width:1}}
+}],{...layout,xaxis:{title:'Term'},yaxis:{title:'Cases'}},config);
+}});
+</script>
+</body>
+</html>

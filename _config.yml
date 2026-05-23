@@ -1,0 +1,11 @@
+theme: jekyll-theme-cayman
+title: Sierra GenAI Engineering
+author: Sierra Napier
+email: sierra.napier430@gmail.com
+description: >-
+  Real arXiv abstracts, real PubMed trials, real SCOTUS opinions —
+  zero synthetic records. 9 projects, 43 figures, 10,000+ real documents.
+baseurl: ""
+url: "https://gosidehustlesisi.github.io"
+show_downloads: true
+google_analytics:
