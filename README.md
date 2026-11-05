@@ -9,7 +9,7 @@
     <img src="https://img.shields.io/badge/License-MIT-green" alt="License" />
     <img src="https://img.shields.io/badge/Portfolio-e3--ai.com-gold" alt="Portfolio" />
   </p>
-  <p><strong>6 projects · 64 figures · 10,000+ real records · zero synthetic data</strong></p>
+  <p><strong>10 projects · 60 figures · 8,898 real records · zero synthetic data</strong></p>
 </div>
 
 ---
@@ -18,14 +18,14 @@
 
 | Source | What It Is | Records | Status |
 |--------|-----------|---------|--------|
-| **arXiv API** | Live ML/AI/NLP research abstracts | 2,646 | Live |
-| **PubMed E-utilities** | Biomedical abstracts (machine learning focus) | 500 | Live |
+| **arXiv API** | Live ML/AI/NLP research abstracts | 3,551 (2,646 RAG + 455 classification + 450 research classifier) | Live |
+| **PubMed E-utilities** | Biomedical abstracts (machine learning focus) | 956 (500 research engine + 414 classification + 42 PubMed research) | Live |
 | **ClinicalTrials.gov** | Clinical trial registry | 500 | Live |
 | **Congress.gov API** | Congressional bills (118th Congress) | 496 | Live |
 | **U.S. Census ACS** | County-level demographics | 3,222 | Live |
 | **Oyez API** | Supreme Court case metadata & voting | 59 | Live |
 | **SCOTUS** | Landmark majority opinions | 15 | Archived |
-| **Wikipedia API** | Legal & financial encyclopedia articles | 991 | Live |
+| **Wikipedia API** | Legal & financial encyclopedia articles | 99 | Live |
 | **BLS Public Data** | Employment time series | 72 months | Live |
 
 **Zero synthetic data. Zero `generate_data.py`. Every record was fetched from a live public API or downloaded from an official government/research portal.**
@@ -47,7 +47,7 @@
 | SCOTUS Opinions | 15 landmark cases | Public domain | Archived |
 | AI-Ready MLOps | Infrastructure template | Census + BLS | Template |
 
-**Total real records: 10,000+**
+**Total real records: 8,898** (plus 72 months of BLS data)
 
 [![10-Gate Audit](https://img.shields.io/badge/10--Gate%20Audit-9%2F9%20PASS-brightgreen)](10-gate-audit-genai-2026-05-21.md)
 
@@ -71,15 +71,15 @@ Most NLP portfolios use toy datasets. This one demonstrates **production-grade d
 
 ## Project 1 — RAG Knowledge Base
 
-**2,651 arXiv abstracts · FAISS dense indexing · Cross-encoder reranking**
+**2,646 arXiv abstracts · FAISS dense indexing · Cross-encoder reranking**
 
 [![arXiv](https://img.shields.io/badge/Source-arXiv%20API-b31b1b)](https://export.arxiv.org/api/query)
-[![FAISS](https://img.shields.io/badge/Index-FAISS%20IVF--Flat-0055FF)](https://github.com/facebookresearch/faiss)
+[![FAISS](https://img.shields.io/badge/Index-FAISS%20Flat%20L2-0055FF)](https://github.com/facebookresearch/faiss)
 [![Cross-Encoder](https://img.shields.io/badge/Reranker-ms--marco--MiniLM-FFD21E)](https://huggingface.co/cross-encoder/ms-marco-MiniLM-L-6-v2)
 
 ### What This Means for Your Business
 
-Retrieval-Augmented Generation is how enterprises ground LLMs in proprietary data. This project demonstrates the full stack: semantic search over 2,651 research abstracts, dense vector indexing with FAISS, and cross-encoder reranking for precision. Query-to-answer latency under 200ms.
+Retrieval-Augmented Generation is how enterprises ground LLMs in proprietary data. This project demonstrates the full stack: semantic search over 2,646 research abstracts, dense vector indexing with FAISS, and cross-encoder reranking for precision. FAISS search takes 1.37 ms (p50); the cross-encoder reranker sets end-to-end time.
 
 ### Why This Matters to Hiring Managers
 
@@ -89,14 +89,13 @@ RAG is the difference between a chatbot that hallucinates and one that cites sou
 
 | Metric | Value |
 |--------|-------|
-| Documents indexed | 2,651 arXiv abstracts |
+| Documents indexed | 2,646 arXiv abstracts |
 | Embedding model | all-MiniLM-L6-v2 (384-dim) |
-| Index type | FAISS IVF-Flat (inverted file) |
+| Index type | FAISS IndexFlatL2 (exact search) |
 | Reranker | Cross-encoder (ms-marco-MiniLM-L-6-v2) |
-| Avg query latency | ~180ms |
-| Categories covered | cs.LG, cs.AI, cs.CL, cs.CV, stat.ML |
+| Top categories | cs.LG 1,032 · cs.AI 767 · cs.CV 527 · cs.CL 512 · stat.ML 500 |
 | FAISS p50 latency | 1.37ms (top-10 on 2,646 docs) |
-| End-to-end latency | ~60-80ms (embedding + FAISS + reranking) |
+| End-to-end latency (5 benchmark queries, CPU) | about 17–18 s per query, mostly cross-encoder reranking (`data/query_benchmarks.json`) |
 
 ### Key Figures
 
@@ -115,7 +114,7 @@ RAG is the difference between a chatbot that hallucinates and one that cites sou
 
 1. **Ingestion**: Queried arXiv API for 8 topic categories, parsed Atom XML, extracted title/abstract/authors/date
 2. **Embedding**: Batch-encoded abstracts with sentence-transformers (mean pooling, normalized)
-3. **Indexing**: Built FAISS IVF-Flat index with 100 centroids — trades memory for speed without significant recall loss
+3. **Indexing**: Built a FAISS IndexFlatL2 index (exact search; at 2,646 documents an approximate index isn't needed)
 4. **Reranking**: Top-100 retrieval passed through cross-encoder; reordered by relevance score
 5. **Serving**: Wrapped in Streamlit dashboard with real-time query box and source attribution
 
@@ -127,7 +126,7 @@ RAG is the difference between a chatbot that hallucinates and one that cites sou
 
 ### TL;DR
 
-> Built a production RAG stack from raw API ingestion to sub-200ms semantic search. FAISS + cross-encoder architecture means recall stays high while precision improves 40% over pure vector search.
+> Built a RAG stack from raw API ingestion to semantic search: FAISS search takes 1.37 ms (p50) over 2,646 abstracts; cross-encoder reranking dominates end-to-end time on CPU (about 17 s per query in the benchmark), so a GPU or a smaller reranker is the next optimization.
 
 ### What I'd Bring to Your Team
 
@@ -140,7 +139,7 @@ RAG is the difference between a chatbot that hallucinates and one that cites sou
 
 ## Project 2 — LLM Document Classification
 
-**991 documents · 3 sources · TF-IDF + Random Forest · Confidence scoring**
+**968 documents · 3 sources · TF-IDF + Logistic Regression and Random Forest · Confidence scoring**
 
 [![ArXiv](https://img.shields.io/badge/ArXiv-455%20abstracts-b31b1b)](https://arxiv.org/help/api/index)
 [![PubMed](https://img.shields.io/badge/PubMed-414%20abstracts-336699)](https://www.ncbi.nlm.nih.gov/books/NBK25500/)
@@ -148,23 +147,22 @@ RAG is the difference between a chatbot that hallucinates and one that cites sou
 
 ### What This Means for Your Business
 
-Document classification at scale requires robustness across domains. This system classifies 991 documents from arXiv, PubMed, and Wikipedia into 6 categories with calibrated confidence scores — no LLM required. Architecture mirrors DC's CapSTAT / RatSTAT methodology for municipal 311 service request triage.
+Document classification at scale requires robustness across domains. This system classifies 968 documents from arXiv, PubMed, and Wikipedia into 4 categories, with each prediction's class probability shown as its confidence — no LLM required.
 
 ### Why This Matters to Hiring Managers
 
-Not every NLP problem needs a neural network. I demonstrate when classical ML outperforms LLMs (speed, interpretability, cost) and when to escalate to transformers. I also show how to build confidence guardrails that flag 12% of predictions for human review.
+Not every NLP problem needs a neural network. I demonstrate when classical ML outperforms LLMs (speed, interpretability, cost) and when to escalate to transformers. Each prediction shows its class probability, so low-confidence documents can be routed to a person.
 
 ### Metrics
 
 | Metric | Value |
 |--------|-------|
-| Documents classified | 991 (arXiv 455 + PubMed 414 + Wikipedia 99) |
+| Documents classified | 968 (arXiv 455 + PubMed 414 + Wikipedia 99) |
 | Categories | 4 (Scientific, Medical, Legal, Financial) |
 | Primary model | TF-IDF + Logistic Regression |
-| Baseline comparison | Random Forest, Naive Bayes |
-| Logistic Regression accuracy | **91.24%** (F1-macro: 0.887) |
+| Baseline comparison | Random Forest |
+| Logistic Regression accuracy | **91.24%** (F1-macro: 0.887; 20% stratified test split, `reports/logistic_regression_metrics.json`) |
 | Random Forest accuracy | **86.08%** (F1-macro: 0.798) |
-| 5-fold CV (LR) | **91.12%** (± 0.031) |
 | Per-class F1 (LR) | Medical: 0.976 · Scientific: 0.902 · Legal: 0.941 · Financial: 0.731 |
 
 ### Key Figures
@@ -183,10 +181,10 @@ Not every NLP problem needs a neural network. I demonstrate when classical ML ou
 ### How We Got There
 
 1. **Corpus assembly**: Fetched real documents from 3 APIs — arXiv (cs.LG/AI/CL), PubMed (cancer immunotherapy trials), Wikipedia (legal/financial articles)
-2. **Preprocessing**: spaCy tokenization, lemmatization, stopword removal, custom domain stopwords
-3. **Feature engineering**: TF-IDF (max 10K features, n-gram range 1-2), chi-squared feature selection
-4. **Model training**: 5-fold CV, class-weighted Random Forest + Logistic Regression, hyperparameter grid search
-5. **Confidence calibration**: Platt scaling on validation set, threshold at 0.6 for auto-classify vs human review
+2. **Preprocessing**: lowercasing, tokenization, scikit-learn English stopword removal
+3. **Feature engineering**: TF-IDF (5,000 features, n-grams 1-2, sublinear TF, min_df 2, max_df 0.95)
+4. **Model training**: class-weighted Random Forest + Logistic Regression on an 80/20 stratified split (DistilBERT fine-tuning is an optional code path; no results reported)
+5. **Confidence**: class probabilities from both models shown side by side in the dashboard
 6. **Dashboard**: Streamlit UI showing prediction + confidence + top features + similar documents
 
 ### Notebooks & Dashboard
@@ -197,7 +195,7 @@ Not every NLP problem needs a neural network. I demonstrate when classical ML ou
 
 ### TL;DR
 
-> Classical ML beats LLMs on speed and cost for structured document classification. 991 documents, 91.24% LR accuracy, 0.976 medical F1 — production-ready guardrails without GPU spend.
+> Classical ML beats LLMs on speed and cost for structured document classification. 968 documents, 91.24% LR accuracy, 0.976 medical F1 — no GPU spend.
 
 ### What I'd Bring to Your Team
 
@@ -226,11 +224,10 @@ Technical teams need to stay current. I built an automated system that watches r
 
 | Metric | Value |
 |--------|-------|
-| Papers analyzed | 450 (cs.LG, cs.AI, cs.CL, cs.CV, stat.ML) |
-| Date range | 2023–2024 |
+| Papers analyzed | 450 (150 each from cs.LG, cs.AI, cs.CL) |
+| Date range | 2026 (one pull) |
 | Keywords extracted | Top 50 per category (TF-IDF) |
-| Top keyword overall | "transformer" (appears in 34% of abstracts) |
-| Growth category | cs.LG (+23% YoY publication volume) |
+| "transformer" | appears in 8.7% of abstracts |
 
 ### Key Figures
 
@@ -238,19 +235,19 @@ Technical teams need to stay current. I built an automated system that watches r
   <img src="https://raw.githubusercontent.com/snapaiarchitect/genai-engineering/main/projects/arxiv-classifier-research-engine/figures/publication_timeline.png" width="48%" alt="Publication Timeline" />
   <img src="https://raw.githubusercontent.com/snapaiarchitect/genai-engineering/main/projects/arxiv-classifier-research-engine/figures/category_distribution.png" width="48%" alt="Category Distribution" />
 </p>
-<p align="center"><em>Peak insight: cs.LG shows +23% YoY growth — the strongest signal that general machine learning (not narrow application domains) is where researcher attention and publication volume are concentrating.</em></p>
+<p align="center"><em>The pull takes 150 papers from each of cs.LG, cs.AI and cs.CL, so category counts are balanced by design and show no growth trend.</em></p>
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/snapaiarchitect/genai-engineering/main/projects/arxiv-classifier-research-engine/figures/top_keywords.png" width="70%" alt="Top Keywords" />
 </p>
-<p align="center"><em>Peak insight: "transformer" dominates 34% of abstracts across all categories — proof that the architecture has become the universal substrate of ML research, not just NLP.</em></p>
+<p align="center"><em>Peak insight: "transformer" appears in 8.7% of the 450 abstracts; the chart ranks TF-IDF keywords by category.</em></p>
 
 ### How We Got There
 
 1. **API ingestion**: Queried arXiv API with category filters, parsed Atom feeds, handled rate limiting (3s between requests)
-2. **Text processing**: spaCy NER + noun chunking for candidate keyword extraction
+2. **Text processing**: lowercasing and stopword removal before TF-IDF keyword scoring
 3. **TF-IDF scoring**: Sklearn TfidfVectorizer with sublinear TF, max document frequency 95%
-4. **Timeline analysis**: Grouped by quarter, plotted publication volume by category
+4. **Timeline analysis**: Publication dates plotted by category (one 2026 pull)
 5. **Visualization**: Matplotlib heatmaps + stacked area charts for trend analysis
 
 ### Notebooks
@@ -259,7 +256,7 @@ Technical teams need to stay current. I built an automated system that watches r
 
 ### TL;DR
 
-> Automated research monitoring: 450 papers, TF-IDF keyword extraction, category growth tracking. Identified cs.LG as fastest-growing (+23% YoY) and "transformer" as the dominant keyword across 34% of abstracts.
+> Automated research monitoring: 450 papers (150 per category), TF-IDF keyword extraction by category; "transformer" appears in 8.7% of abstracts. Re-running the pull over several months would add a trend.
 
 ### What I'd Bring to Your Team
 
@@ -350,7 +347,7 @@ Legal tech, compliance, and policy teams need NLP systems that understand domain
 |--------|-------|
 | Cases analyzed | 15 landmark SCOTUS majority opinions |
 | Source | Public domain court records |
-| Vote margins | 5-0 to 9-0 distribution mapped |
+| Vote margins | 5-4 (7 cases), 6-3 (2), 7-2 (1), 8-0 (1), 9-0 (3), 4-0 (1) |
 | Legal terms extracted | Top 50 frequency-weighted terms per case |
 
 ### Key Figures
@@ -359,17 +356,17 @@ Legal tech, compliance, and policy teams need NLP systems that understand domain
   <img src="https://raw.githubusercontent.com/snapaiarchitect/genai-engineering/main/projects/scotus-opinions/figures/vote_margins.png" width="48%" alt="Vote Margins" />
   <img src="https://raw.githubusercontent.com/snapaiarchitect/genai-engineering/main/projects/scotus-opinions/figures/topic_distribution.png" width="48%" alt="Topic Distribution" />
 </p>
-<p align="center"><em>Peak insight: Vote margin distribution reveals how consensus breaks down across issue domains — unanimous decisions cluster on procedural matters while 5-4 splits concentrate on constitutional rights.</em></p>
+<p align="center"><em>Peak insight: 7 of the 15 cases were decided 5-4 (marriage, voting rights, the Second Amendment, health care); the 5 unanimous ones are older landmarks (Marbury, Brown, Gideon, Sullivan, Nixon).</em></p>
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/snapaiarchitect/genai-engineering/main/projects/scotus-opinions/figures/opinion_length_timeline.png" width="70%" alt="Opinion Length Timeline" />
 </p>
-<p align="center"><em>Peak insight: Opinion length has grown 40% since 2000 — a proxy for increasing doctrinal complexity that any legal NLP system must account for in chunking and retrieval strategies.</em></p>
+<p align="center"><em>In these 15 hand-picked cases, opinions from 2000 on average 12,100 words vs 7,900 before; a small sample, not a trend, but long opinions still need chunking for retrieval.</em></p>
 
 ### How We Got There
 
 1. **Data collection**: Curated 15 landmark SCOTUS cases with majority opinion text, vote counts, and issue areas
-2. **Text processing**: spaCy tokenization with legal-specific stopword handling, lemmatization of Latin legal terms
+2. **Text processing**: tokenization with legal-specific stopword handling
 3. **Term frequency**: Custom TF-IDF with legal vocabulary weighting
 4. **Temporal analysis**: Opinion length trends, vote margin distributions by decade
 5. **Topic modeling**: Frequency-based topic assignment with legal domain taxonomy
@@ -434,7 +431,7 @@ Most candidates can train a model. Few can tell you what happens when it drifts 
 
 ### TL;DR
 
-> Production MLOps template: model registry, drift detection, A/B testing, auto-retraining. The same patterns Stripe uses for fraud models and Netflix uses for recommendation ranking.
+> Production MLOps template: model registry, drift detection, A/B testing, auto-retraining.
 
 ### What I'd Bring to Your Team
 
@@ -451,8 +448,7 @@ Most candidates can train a model. Few can tell you what happens when it drifts 
 | Technology | Purpose |
 |-----------|---------|
 | **Python 3.10+** | Primary language |
-| **Transformers (HuggingFace)** | BERT fine-tuning, DistilBERT classification |
-| **spaCy** | Tokenization, NER, text preprocessing |
+| **Transformers (HuggingFace)** | DistilBERT fine-tuning (optional code path in the classifier; no results reported) |
 | **sentence-transformers** | Embeddings (all-MiniLM-L6-v2) |
 | **FAISS** | Dense vector indexing for RAG |
 
@@ -477,11 +473,11 @@ Most candidates can train a model. Few can tell you what happens when it drifts 
 
 | Source | URL / API | Records | License |
 |--------|-----------|---------|---------|
-| **arXiv API** | `https://export.arxiv.org/api/query` | 2,651+ abstracts | arXiv perpetual nonexclusive |
-| **PubMed E-utilities** | `https://eutils.ncbi.nlm.nih.gov/entrez/eutils/` | 42+ records | Public domain (NIH) |
+| **arXiv API** | `https://export.arxiv.org/api/query` | 3,551 abstracts | arXiv perpetual nonexclusive |
+| **PubMed E-utilities** | `https://eutils.ncbi.nlm.nih.gov/entrez/eutils/` | 956 records | Public domain (NIH) |
 | **SCOTUS Opinions** | `https://www.supremecourt.gov/` | 15 cases | Public domain (U.S. government) |
-| **Wikipedia API** | `https://en.wikipedia.org/w/api.php` | 991 articles | CC BY-SA 3.0 |
-| **U.S. Census ACS** | `https://api.census.gov/data/` | 50 states | Public domain |
+| **Wikipedia API** | `https://en.wikipedia.org/w/api.php` | 99 articles | CC BY-SA 3.0 |
+| **U.S. Census ACS** | `https://api.census.gov/data/` | 3,222 counties | Public domain |
 | **BLS Public Data** | `https://api.bls.gov/publicAPI/v2/timeseries/data/` | 72 months | Public domain |
 
 ---
@@ -540,7 +536,7 @@ sierra-genai-engineering/
 │   │   ├── figures/
 │   │   ├── notebooks/
 │   │   └── fetch_pubmed_data.py
-│   ├── llm-document-classification/       # 991 classified documents
+│   ├── llm-document-classification/       # 968 classified documents
 │   │   ├── data/
 │   │   ├── figures/
 │   │   ├── notebooks/
@@ -548,7 +544,7 @@ sierra-genai-engineering/
 │   │   ├── models/
 │   │   ├── reports/
 │   │   └── dashboard.py
-│   ├── rag-knowledge-base/               # 2,651 abstracts + FAISS index
+│   ├── rag-knowledge-base/               # 2,646 abstracts + FAISS index
 │   │   ├── data/
 │   │   ├── figures/
 │   │   ├── notebooks/
