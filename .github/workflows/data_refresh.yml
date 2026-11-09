@@ -23,6 +23,7 @@ jobs:
 
       - name: Install dependencies
         run: |
+          pip install torch --index-url https://download.pytorch.org/whl/cpu  # CPU-only; the CUDA build fills the runner disk
           pip install -r requirements.txt
           pip install requests pandas matplotlib seaborn
 

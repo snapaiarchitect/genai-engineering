@@ -40,6 +40,8 @@ jobs:
         run: |
           if [ -f requirements.txt ]; then
             echo "Found requirements.txt, installing..."
+            # CPU-only torch: the default build pulls ~3 GB of CUDA wheels and fills the runner disk
+            pip install torch --index-url https://download.pytorch.org/whl/cpu
             pip install -r requirements.txt
           fi
           if [ -f pyproject.toml ]; then
