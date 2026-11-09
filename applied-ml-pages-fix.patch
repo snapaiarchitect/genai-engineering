@@ -1,0 +1,1083 @@
+From 090cfacfb31c54def4246977bd8356d79c1efd3a Mon Sep 17 00:00:00 2001
+From: Claude <noreply@anthropic.com>
+Date: Thu, 5 Nov 2026 12:26:56 -0500
+Subject: [PATCH 1/2] README: correct claims to match results.json; point links
+ to this repo
+
+Add the mean-RUL baseline to the NASA results; describe MAE as error, not a prediction horizon; remove the
+unsourced downtime cost; fix the bike-sharing MAPE and model comparison wording; TF-IDF feature count from
+results.json; links now point to snapaiarchitect (the old account's copy is private, so images and pages broke).
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01C1QSesfw7zWAiQaf6RugHj
+---
+ README.md       | 60 ++++++++++++++++++++++++-------------------------
+ docs/index.html | 48 +++++++++++++++++++--------------------
+ 2 files changed, 54 insertions(+), 54 deletions(-)
+
+diff --git a/README.md b/README.md
+index fe78874..d44f288 100644
+--- a/README.md
++++ b/README.md
+@@ -25,9 +25,9 @@ These aren't screenshots. They're live Plotly visualizations with real data, mod
+ 
+ | Dashboard | What You Can Do | Live Link |
+ |---|---|---|
+-| **Bike Sharing — Demand Forecasting** | Toggle models (All / Baseline / Random Forest / XGBoost / SARIMA), view 30-day holdout, compare actual vs predicted | [🚀 Open](https://gosidehustlesisi.github.io/sierra-applied-ml/interactive-dashboards/bike-sharing.html) |
+-| **NLP — Text Classification** | Filter train/test splits, view TF-IDF heatmaps, compare model radar charts, explore confusion matrices | [🚀 Open](https://gosidehustlesisi.github.io/sierra-applied-ml/interactive-dashboards/nlp-classification.html) |
+-| **NASA — Predictive Maintenance** | Filter engines by RUL (early/long-life), view sensor trajectories, see feature importance, check prediction confidence bands | [🚀 Open](https://gosidehustlesisi.github.io/sierra-applied-ml/interactive-dashboards/predictive-maintenance.html) |
++| **Bike Sharing — Demand Forecasting** | Toggle models (All / Baseline / Random Forest / XGBoost / SARIMA), view 30-day holdout, compare actual vs predicted | [🚀 Open](https://snapaiarchitect.github.io/sierra-applied-ml/interactive-dashboards/bike-sharing.html) |
++| **NLP — Text Classification** | Filter train/test splits, view TF-IDF heatmaps, compare model radar charts, explore confusion matrices | [🚀 Open](https://snapaiarchitect.github.io/sierra-applied-ml/interactive-dashboards/nlp-classification.html) |
++| **NASA — Predictive Maintenance** | Filter engines by RUL (early/long-life), view sensor trajectories, see feature importance, check prediction confidence bands | [🚀 Open](https://snapaiarchitect.github.io/sierra-applied-ml/interactive-dashboards/predictive-maintenance.html) |
+ 
+ ---
+ 
+@@ -37,9 +37,9 @@ Full-screen interactive analytics for each project — same charts as the dashbo
+ 
+ | Project | Live Page | Charts |
+ |---|---|---|
+-| **Demand Forecasting** | [View →](https://gosidehustlesisi.github.io/sierra-applied-ml/projects/demand-forecasting.html) | 6 interactive charts: ensemble forecast, model comparison, residual distribution, seasonal pattern, hourly demand, feature importance |
+-| **NLP Classification** | [View →](https://gosidehustlesisi.github.io/sierra-applied-ml/projects/nlp-text-classification.html) | 5 interactive charts: category distribution, TF-IDF heatmap, model comparison, confusion matrix, radar chart |
+-| **Predictive Maintenance** | [View →](https://gosidehustlesisi.github.io/sierra-applied-ml/projects/predictive-maintenance.html) | 5 interactive charts: RUL distribution, sensor trajectories, feature importance, correlation by phase, predicted vs actual with confidence band |
++| **Demand Forecasting** | [View →](https://snapaiarchitect.github.io/sierra-applied-ml/projects/demand-forecasting.html) | 6 interactive charts: ensemble forecast, model comparison, residual distribution, seasonal pattern, hourly demand, feature importance |
++| **NLP Classification** | [View →](https://snapaiarchitect.github.io/sierra-applied-ml/projects/nlp-text-classification.html) | 5 interactive charts: category distribution, TF-IDF heatmap, model comparison, confusion matrix, radar chart |
++| **Predictive Maintenance** | [View →](https://snapaiarchitect.github.io/sierra-applied-ml/projects/predictive-maintenance.html) | 5 interactive charts: RUL distribution, sensor trajectories, feature importance, correlation by phase, predicted vs actual with confidence band |
+ 
+ ---
+ 
+@@ -57,7 +57,7 @@ Full-screen interactive analytics for each project — same charts as the dashbo
+ 
+ ## About This Work
+ 
+-This portfolio was built by **Sierra Napier** — data scientist, AI architect, and founder of [evo3](https://e3-ai.com). With an MPA/MPH background spanning enterprise consulting and public-sector analytics, I treat every dataset as a decision-support problem, not a Kaggle exercise.
++This portfolio was built by **Sierra Napier** — data scientist, AI architect, and founder of [evo3](https://e3-ai.com). With an MPA background spanning enterprise consulting and public-sector analytics, I treat every dataset as a decision-support problem, not a Kaggle exercise.
+ 
+ These three projects demonstrate what I bring to an applied ML role: **end-to-end pipelines on real public data**, from telemetry ingestion to deployed forecasting models. No synthetic CSVs. No `make_classification` stand-ins. Every sensor reading, every Usenet post, every rental record was fetched from an actual public source, cleaned, explored, modeled, and documented.
+ 
+@@ -72,9 +72,8 @@ These three projects demonstrate what I bring to an applied ML role: **end-to-en
+ **Business Problem**: Fleet operators and transit agencies lose millions to unplanned asset failures. Predicting which engines will fail and when enables proactive maintenance scheduling instead of reactive downtime.
+ 
+ ### What This Means for Business
+-- **26-cycle prediction horizon** — maintenance can be scheduled ~26 operating cycles before failure (MAE)
++- **Remaining-life estimates within about 24 cycles on average** — the random forest's mean absolute error is 24.3 cycles, 40% lower than a predict-the-average baseline (40.7)
+ - **Sensor-driven prioritization** — identifies which engines are degrading fastest without teardown inspections
+-- **Cost avoidance** — unplanned downtime in rail/transit averages $50K–$500K per incident; even a 10% reduction pays for the model
+ 
+ ### Why This Matters to Hiring Managers
+ - Demonstrates **time-series degradation modeling** on real telemetry (not synthetic drift)
+@@ -85,31 +84,32 @@ These three projects demonstrate what I bring to an applied ML role: **end-to-en
+ 
+ | Model | MAE | RMSE | R² |
+ |-------|-----|------|----|
+-| **XGBoost** | **26.2 cycles** | **36.8 cycles** | **0.22** |
+-| Random Forest | 24.3 cycles | 35.5 cycles | 0.27 |
++| Mean-RUL baseline | 40.7 cycles | 52.3 cycles | −0.59 |
++| **Random Forest** | **24.3 cycles** | **35.5 cycles** | **0.27** |
++| XGBoost | 26.2 cycles | 36.8 cycles | 0.22 |
+ 
+ ### Key Visualizations
+ 
+ <p align="center">
+-  <img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-applied-ml/main/projects/predictive-maintenance-transit/figures/sensor_degradation_curves.png" width="700" alt="Sensor Degradation Curves">
++  <img src="https://raw.githubusercontent.com/snapaiarchitect/sierra-applied-ml/main/projects/predictive-maintenance-transit/figures/sensor_degradation_curves.png" width="700" alt="Sensor Degradation Curves">
+   <br>
+   <em><strong>Peak insight:</strong> Sensor 11 (HPC outlet temperature) and Sensor 4 (LPC outlet temperature) are the strongest predictors of engine degradation — visible as divergence curves well before failure.</em>
+ </p>
+ 
+ <p align="center">
+-  <img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-applied-ml/main/projects/predictive-maintenance-transit/figures/predicted_vs_actual_rul.png" width="700" alt="Predicted vs Actual RUL">
++  <img src="https://raw.githubusercontent.com/snapaiarchitect/sierra-applied-ml/main/projects/predictive-maintenance-transit/figures/predicted_vs_actual_rul.png" width="700" alt="Predicted vs Actual RUL">
+   <br>
+-  <em><strong>Peak insight:</strong> XGBoost clusters tightly around the perfect-prediction line for mid-range RUL values; the model is most reliable when engines are neither brand-new nor already failing.</em>
++  <em><strong>Peak insight:</strong> Predictions sit closest to the perfect-prediction line for mid-range remaining life; with R² of 0.22–0.27, the models rank engines by risk better than they pin an exact failure cycle.</em>
+ </p>
+ 
+ <p align="center">
+-  <img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-applied-ml/main/projects/predictive-maintenance-transit/figures/feature_importance.png" width="700" alt="Feature Importance">
++  <img src="https://raw.githubusercontent.com/snapaiarchitect/sierra-applied-ml/main/projects/predictive-maintenance-transit/figures/feature_importance.png" width="700" alt="Feature Importance">
+   <br>
+   <em><strong>Peak insight:</strong> Engineered rolling-mean and rate-of-change features dominate raw sensor readings — proof that domain-informed preprocessing outperforms throwing raw signals at a model.</em>
+ </p>
+ 
+ ### Interactive Dashboard
+-Explore the live NASA dashboard with sensor trajectories, RUL filters, and prediction confidence bands: [🚀 Open Predictive Maintenance Dashboard](https://gosidehustlesisi.github.io/sierra-applied-ml/interactive-dashboards/predictive-maintenance.html)
++Explore the live NASA dashboard with sensor trajectories, RUL filters, and prediction confidence bands: [🚀 Open Predictive Maintenance Dashboard](https://snapaiarchitect.github.io/sierra-applied-ml/interactive-dashboards/predictive-maintenance.html)
+ 
+ ### How We Got There
+ 1. **Data acquisition**: Automated download from NASA Prognostics Center of Excellence with retry logic
+@@ -154,31 +154,31 @@ Explore the live NASA dashboard with sensor trajectories, RUL filters, and predi
+ ### Key Visualizations
+ 
+ <p align="center">
+-  <img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-applied-ml/main/projects/nlp-text-classification-pipeline/figures/confusion_matrix.png" width="700" alt="Confusion Matrix">
++  <img src="https://raw.githubusercontent.com/snapaiarchitect/sierra-applied-ml/main/projects/nlp-text-classification-pipeline/figures/confusion_matrix.png" width="700" alt="Confusion Matrix">
+   <br>
+   <em><strong>Peak insight:</strong> Misclassifications cluster within super-categories (comp.* → comp.*, sci.* → sci.*) — the model captures semantic hierarchy even when individual labels are wrong.</em>
+ </p>
+ 
+ <p align="center">
+-  <img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-applied-ml/main/projects/nlp-text-classification-pipeline/figures/model_comparison.png" width="700" alt="Model Comparison">
++  <img src="https://raw.githubusercontent.com/snapaiarchitect/sierra-applied-ml/main/projects/nlp-text-classification-pipeline/figures/model_comparison.png" width="700" alt="Model Comparison">
+   <br>
+   <em><strong>Peak insight:</strong> Simple Naive Bayes with TF-IDF outperforms more complex models on this benchmark — a reminder that speed and interpretability often matter more than marginal accuracy gains.</em>
+ </p>
+ 
+ <p align="center">
+-  <img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-applied-ml/main/projects/nlp-text-classification-pipeline/figures/top_tfidf_features.png" width="700" alt="Top TF-IDF Features">
++  <img src="https://raw.githubusercontent.com/snapaiarchitect/sierra-applied-ml/main/projects/nlp-text-classification-pipeline/figures/top_tfidf_features.png" width="700" alt="Top TF-IDF Features">
+   <br>
+   <em><strong>Peak insight:</strong> Discriminating words are domain-specific and intuitive ("space" for sci.space, "graphics" for comp.graphics) — the model learned real semantic signals, not statistical noise.</em>
+ </p>
+ 
+ ### Interactive Dashboard
+-Explore the live NLP dashboard with TF-IDF heatmaps, model radar charts, and train/test filters: [🚀 Open NLP Dashboard](https://gosidehustlesisi.github.io/sierra-applied-ml/interactive-dashboards/nlp-classification.html)
++Explore the live NLP dashboard with TF-IDF heatmaps, model radar charts, and train/test filters: [🚀 Open NLP Dashboard](https://snapaiarchitect.github.io/sierra-applied-ml/interactive-dashboards/nlp-classification.html)
+ 
+ ### How We Got There
+ 1. **Data acquisition**: Fetched 18,846 real Usenet posts from `sklearn.datasets.fetch_20newsgroups`
+ 2. **Text preprocessing**: Lowercase, punctuation/stopword/number removal
+-3. **Vectorization**: TF-IDF with 15K features, sublinear TF scaling
+-4. **Modeling**: Naive Bayes, Logistic Regression, Linear SVM — all with hyperparameter tuning
++3. **Vectorization**: TF-IDF with 5,000 features, n-grams 1-2
++4. **Modeling**: Naive Bayes, Logistic Regression, Linear SVM
+ 5. **Evaluation**: Accuracy, precision, recall, F1, confusion matrix, per-class feature analysis
+ 
+ ### What I'd Bring
+@@ -216,24 +216,24 @@ Explore the live NLP dashboard with TF-IDF heatmaps, model radar charts, and tra
+ | SARIMA | 1418.22 | 1779.18 | 92.92% | 0.01 | Model misspecification on hourly data |
+ 
+ ### Interactive Dashboard
+-Explore the live Bike Sharing dashboard with ensemble forecasts, model toggles, and weather overlays: [🚀 Open Bike Sharing Dashboard](https://gosidehustlesisi.github.io/sierra-applied-ml/interactive-dashboards/bike-sharing.html)
++Explore the live Bike Sharing dashboard with ensemble forecasts, model toggles, and weather overlays: [🚀 Open Bike Sharing Dashboard](https://snapaiarchitect.github.io/sierra-applied-ml/interactive-dashboards/bike-sharing.html)
+ 
+ ### Key Visualizations
+ 
+ <p align="center">
+-  <img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-applied-ml/main/projects/demand-forecasting-operations/figures/03_actual_vs_predicted.png" width="700" alt="Actual vs Predicted">
++  <img src="https://raw.githubusercontent.com/snapaiarchitect/sierra-applied-ml/main/projects/demand-forecasting-operations/figures/03_actual_vs_predicted.png" width="700" alt="Actual vs Predicted">
+   <br>
+-  <em><strong>Peak insight:</strong> XGBoost ensemble tracks hourly demand with ~18% MAPE — the model captures both commuter spikes and weekend leisure patterns.</em>
++  <em><strong>Peak insight:</strong> Random forest tracks hourly demand at 25.2% MAPE (XGBoost 27.1%), capturing both commuter spikes and weekend leisure patterns.</em>
+ </p>
+ 
+ <p align="center">
+-  <img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-applied-ml/main/projects/demand-forecasting-operations/figures/03_model_comparison.png" width="700" alt="Forecast Model Comparison">
++  <img src="https://raw.githubusercontent.com/snapaiarchitect/sierra-applied-ml/main/projects/demand-forecasting-operations/figures/03_model_comparison.png" width="700" alt="Forecast Model Comparison">
+   <br>
+-  <em><strong>Peak insight:</strong> XGBoost vs Random Forest vs Seasonal Naive baseline — the ensemble approach dominates across all metrics.</em>
++  <em><strong>Peak insight:</strong> Both tree models cut mean absolute error by about two-thirds against the seasonal naive baseline; random forest has the lowest MAE and MAPE, XGBoost a slightly lower RMSE.</em>
+ </p>
+ 
+ <p align="center">
+-  <img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-applied-ml/main/projects/demand-forecasting-operations/figures/03_seasonal_decomposition.png" width="700" alt="Seasonal Decomposition">
++  <img src="https://raw.githubusercontent.com/snapaiarchitect/sierra-applied-ml/main/projects/demand-forecasting-operations/figures/03_seasonal_decomposition.png" width="700" alt="Seasonal Decomposition">
+   <br>
+   <em><strong>Peak insight:</strong> Trend, weekly seasonality, and residual extraction reveal the structural components driving demand.</em>
+ </p>
+@@ -270,7 +270,7 @@ Explore the live Bike Sharing dashboard with ensemble forecasts, model toggles,
+ 
+ ```bash
+ # Clone the repo
+-git clone https://github.com/gosidehustlesisi/sierra-applied-ml.git
++git clone https://github.com/snapaiarchitect/sierra-applied-ml.git
+ cd sierra-applied-ml
+ 
+ # Install dependencies
+@@ -328,7 +328,7 @@ sierra-applied-ml/
+ ## Contact
+ 
+ **Sierra Napier**
+-- 🔗 GitHub: [@gosidehustlesisi](https://github.com/gosidehustlesisi)
++- 🔗 GitHub: [@snapaiarchitect](https://github.com/snapaiarchitect)
+ - 🌐 Portfolio: [e3-ai.com](https://e3-ai.com)
+ - 💼 LinkedIn: [sierra-napier](https://linkedin.com/in/sierra-napier)
+ - 📧 Open to fractional CMO / Growth Lead / Applied ML roles
+diff --git a/docs/index.html b/docs/index.html
+index 0dce4e0..a1dad10 100644
+--- a/docs/index.html
++++ b/docs/index.html
+@@ -6,11 +6,11 @@
+   <meta name="description" content="Sierra Napier — Applied ML Portfolio. NASA C-MAPSS predictive maintenance, 20 Newsgroups NLP classification, UCI Bike Sharing demand forecasting. Real public data. Zero synthetic records.">
+   <meta property="og:title" content="Sierra Napier — Applied ML | Predictive Maintenance · NLP · Forecasting">
+   <meta property="og:description" content="3 production ML projects · 11 notebooks · 21 visualizations · NASA · UCI · sklearn. Real public data, zero synthetic records.">
+-  <meta property="og:image" content="https://raw.githubusercontent.com/gosidehustlesisi/gosidehustlesisi.github.io/main/assets/avatar.png">
+-  <meta property="og:url" content="https://gosidehustlesisi.github.io/sierra-applied-ml/">
++  <meta property="og:image" content="https://raw.githubusercontent.com/snapaiarchitect/snapaiarchitect.github.io/main/assets/avatar.png">
++  <meta property="og:url" content="https://snapaiarchitect.github.io/sierra-applied-ml/">
+   <meta property="og:type" content="website">
+   <meta name="twitter:card" content="summary_large_image">
+-  <meta name="twitter:image" content="https://raw.githubusercontent.com/gosidehustlesisi/gosidehustlesisi.github.io/main/assets/avatar.png">
++  <meta name="twitter:image" content="https://raw.githubusercontent.com/snapaiarchitect/snapaiarchitect.github.io/main/assets/avatar.png">
+   <title>Sierra Napier — Applied ML</title>
+   <style>
+     :root {
+@@ -486,8 +486,8 @@
+   <!-- Navigation -->
+   <nav>
+     <div class="container">
+-      <a href="https://gosidehustlesisi.github.io/" class="nav-brand">
+-        <img src="https://raw.githubusercontent.com/gosidehustlesisi/gosidehustlesisi.github.io/main/assets/avatar.png" alt="Sierra Napier">
++      <a href="https://snapaiarchitect.github.io/" class="nav-brand">
++        <img src="https://raw.githubusercontent.com/snapaiarchitect/snapaiarchitect.github.io/main/assets/avatar.png" alt="Sierra Napier">
+         <span>Sierra Napier</span>
+       </a>
+       <ul class="nav-links">
+@@ -683,7 +683,7 @@
+           <h3>Ensemble Forecast — Actual vs. Predicted</h3>
+           <div class="project-meta">UCI Bike Sharing · Model Toggle · 30-Day Holdout</div>
+         </div>
+-        <iframe src="https://gosidehustlesisi.github.io/sierra-applied-ml/projects/demand-forecasting.html" loading="lazy" title="Demand Forecasting Interactive Chart"
++        <iframe src="https://snapaiarchitect.github.io/sierra-applied-ml/projects/demand-forecasting.html" loading="lazy" title="Demand Forecasting Interactive Chart"
+           sandbox="allow-scripts allow-same-origin allow-popups"
+           style="width:100%; height:500px; border:none; border-top: 1px solid var(--border); display:block;">
+         </iframe>
+@@ -703,7 +703,7 @@
+           <h3>NLP Text Classification</h3>
+           <div class="project-meta">20 Newsgroups · TF-IDF Heatmap · Confusion Matrix</div>
+         </div>
+-        <iframe src="https://gosidehustlesisi.github.io/sierra-applied-ml/projects/nlp-text-classification.html" loading="lazy" title="NLP Classification Interactive Chart"
++        <iframe src="https://snapaiarchitect.github.io/sierra-applied-ml/projects/nlp-text-classification.html" loading="lazy" title="NLP Classification Interactive Chart"
+           sandbox="allow-scripts allow-same-origin allow-popups"
+           style="width:100%; height:500px; border:none; border-top: 1px solid var(--border); display:block;">
+         </iframe>
+@@ -723,7 +723,7 @@
+           <h3>Predictive Maintenance — NASA C-MAPSS</h3>
+           <div class="project-meta">RUL Prediction · Sensor Trajectories · Feature Importance</div>
+         </div>
+-        <iframe src="https://gosidehustlesisi.github.io/sierra-applied-ml/projects/predictive-maintenance.html" loading="lazy" title="Predictive Maintenance Interactive Chart"
++        <iframe src="https://snapaiarchitect.github.io/sierra-applied-ml/projects/predictive-maintenance.html" loading="lazy" title="Predictive Maintenance Interactive Chart"
+           sandbox="allow-scripts allow-same-origin allow-popups"
+           style="width:100%; height:500px; border:none; border-top: 1px solid var(--border); display:block;">
+         </iframe>
+@@ -747,73 +747,73 @@
+     <div class="gallery-grid">
+       
+       <div class="gallery-item">
+-        <img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-applied-ml/main/projects/predictive-maintenance-transit/figures/sensor_degradation_curves.png" alt="Sensor Degradation Curves" loading="lazy">
++        <img src="https://raw.githubusercontent.com/snapaiarchitect/sierra-applied-ml/main/projects/predictive-maintenance-transit/figures/sensor_degradation_curves.png" alt="Sensor Degradation Curves" loading="lazy">
+         <div class="gallery-caption">Sensor Degradation Curves</div>
+         <div class="gallery-subcaption">NASA C-MAPSS — HPC and LPC outlet temperatures diverge well before failure</div>
+       </div>
+       
+       <div class="gallery-item">
+-        <img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-applied-ml/main/projects/predictive-maintenance-transit/figures/predicted_vs_actual_rul.png" alt="Predicted vs Actual RUL" loading="lazy">
++        <img src="https://raw.githubusercontent.com/snapaiarchitect/sierra-applied-ml/main/projects/predictive-maintenance-transit/figures/predicted_vs_actual_rul.png" alt="Predicted vs Actual RUL" loading="lazy">
+         <div class="gallery-caption">Predicted vs Actual RUL</div>
+         <div class="gallery-subcaption">XGBoost clusters tightly around perfect prediction for mid-range values</div>
+       </div>
+       
+       <div class="gallery-item">
+-        <img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-applied-ml/main/projects/predictive-maintenance-transit/figures/feature_importance.png" alt="Feature Importance" loading="lazy">
++        <img src="https://raw.githubusercontent.com/snapaiarchitect/sierra-applied-ml/main/projects/predictive-maintenance-transit/figures/feature_importance.png" alt="Feature Importance" loading="lazy">
+         <div class="gallery-caption">Feature Importance</div>
+         <div class="gallery-subcaption">Rolling-mean and rate-of-change features dominate raw sensor readings</div>
+       </div>
+       
+       <div class="gallery-item">
+-        <img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-applied-ml/main/projects/predictive-maintenance-transit/figures/rul_distributions.png" alt="RUL Distributions" loading="lazy">
++        <img src="https://raw.githubusercontent.com/snapaiarchitect/sierra-applied-ml/main/projects/predictive-maintenance-transit/figures/rul_distributions.png" alt="RUL Distributions" loading="lazy">
+         <div class="gallery-caption">RUL Distributions</div>
+         <div class="gallery-subcaption">Distribution of remaining useful life across the engine fleet</div>
+       </div>
+       
+       <div class="gallery-item">
+-        <img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-applied-ml/main/projects/predictive-maintenance-transit/figures/sensor_rul_correlation.png" alt="Sensor-RUL Correlation" loading="lazy">
++        <img src="https://raw.githubusercontent.com/snapaiarchitect/sierra-applied-ml/main/projects/predictive-maintenance-transit/figures/sensor_rul_correlation.png" alt="Sensor-RUL Correlation" loading="lazy">
+         <div class="gallery-caption">Sensor-RUL Correlation</div>
+         <div class="gallery-subcaption">Heatmap of sensor correlation with remaining useful life</div>
+       </div>
+       
+       <div class="gallery-item">
+-        <img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-applied-ml/main/projects/nlp-text-classification-pipeline/figures/confusion_matrix.png" alt="Confusion Matrix" loading="lazy">
++        <img src="https://raw.githubusercontent.com/snapaiarchitect/sierra-applied-ml/main/projects/nlp-text-classification-pipeline/figures/confusion_matrix.png" alt="Confusion Matrix" loading="lazy">
+         <div class="gallery-caption">Confusion Matrix</div>
+         <div class="gallery-subcaption">Misclassifications cluster within super-categories (comp.*, sci.*)</div>
+       </div>
+       
+       <div class="gallery-item">
+-        <img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-applied-ml/main/projects/nlp-text-classification-pipeline/figures/model_comparison.png" alt="Model Comparison" loading="lazy">
++        <img src="https://raw.githubusercontent.com/snapaiarchitect/sierra-applied-ml/main/projects/nlp-text-classification-pipeline/figures/model_comparison.png" alt="Model Comparison" loading="lazy">
+         <div class="gallery-caption">Model Comparison</div>
+         <div class="gallery-subcaption">Naive Bayes with TF-IDF outperforms more complex alternatives</div>
+       </div>
+       
+       <div class="gallery-item">
+-        <img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-applied-ml/main/projects/nlp-text-classification-pipeline/figures/top_tfidf_features.png" alt="Top TF-IDF Features" loading="lazy">
++        <img src="https://raw.githubusercontent.com/snapaiarchitect/sierra-applied-ml/main/projects/nlp-text-classification-pipeline/figures/top_tfidf_features.png" alt="Top TF-IDF Features" loading="lazy">
+         <div class="gallery-caption">Top TF-IDF Features</div>
+         <div class="gallery-subcaption">Domain-specific words drive classification ("space", "graphics")</div>
+       </div>
+       
+       <div class="gallery-item">
+-        <img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-applied-ml/main/projects/nlp-text-classification-pipeline/figures/nlp_01_overview.png" alt="NLP Pipeline Overview" loading="lazy">
++        <img src="https://raw.githubusercontent.com/snapaiarchitect/sierra-applied-ml/main/projects/nlp-text-classification-pipeline/figures/nlp_01_overview.png" alt="NLP Pipeline Overview" loading="lazy">
+         <div class="gallery-caption">NLP Pipeline Overview</div>
+         <div class="gallery-subcaption">Full text preprocessing → vectorization → classification flow</div>
+       </div>
+       
+       <div class="gallery-item">
+-        <img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-applied-ml/main/projects/demand-forecasting-operations/figures/03_actual_vs_predicted.png" alt="Actual vs Predicted" loading="lazy">
++        <img src="https://raw.githubusercontent.com/snapaiarchitect/sierra-applied-ml/main/projects/demand-forecasting-operations/figures/03_actual_vs_predicted.png" alt="Actual vs Predicted" loading="lazy">
+         <div class="gallery-caption">Actual vs Predicted</div>
+         <div class="gallery-subcaption">XGBoost ensemble tracks hourly demand with 25% MAPE</div>
+       </div>
+       
+       <div class="gallery-item">
+-        <img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-applied-ml/main/projects/demand-forecasting-operations/figures/03_model_comparison.png" alt="Forecast Model Comparison" loading="lazy">
++        <img src="https://raw.githubusercontent.com/snapaiarchitect/sierra-applied-ml/main/projects/demand-forecasting-operations/figures/03_model_comparison.png" alt="Forecast Model Comparison" loading="lazy">
+         <div class="gallery-caption">Forecast Model Comparison</div>
+         <div class="gallery-subcaption">XGBoost vs Random Forest vs Seasonal Naive baseline</div>
+       </div>
+       
+       <div class="gallery-item">
+-        <img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-applied-ml/main/projects/demand-forecasting-operations/figures/03_seasonal_decomposition.png" alt="Seasonal Decomposition" loading="lazy">
++        <img src="https://raw.githubusercontent.com/snapaiarchitect/sierra-applied-ml/main/projects/demand-forecasting-operations/figures/03_seasonal_decomposition.png" alt="Seasonal Decomposition" loading="lazy">
+         <div class="gallery-caption">Seasonal Decomposition</div>
+         <div class="gallery-subcaption">Trend, weekly seasonality, and residual extraction</div>
+       </div>
+@@ -937,9 +937,9 @@
+     <p class="contact-subtitle">Hiring for applied ML, forecasting, or NLP roles? I ship pipelines, not notebooks.</p>
+     <div class="contact-links">
+       <a href="mailto:sierra.napier@e3-ai.com" class="contact-link">📧 Get In Touch</a>
+-      <a href="https://github.com/gosidehustlesisi/sierra-applied-ml" class="contact-link" target="_blank" rel="noopener">GitHub Repo</a>
+-      <a href="https://github.com/gosidehustlesisi" class="contact-link" target="_blank" rel="noopener">GitHub Profile</a>
+-      <a href="https://gosidehustlesisi.github.io/" class="contact-link" target="_blank" rel="noopener">Full Portfolio</a>
++      <a href="https://github.com/snapaiarchitect/sierra-applied-ml" class="contact-link" target="_blank" rel="noopener">GitHub Repo</a>
++      <a href="https://github.com/snapaiarchitect" class="contact-link" target="_blank" rel="noopener">GitHub Profile</a>
++      <a href="https://snapaiarchitect.github.io/" class="contact-link" target="_blank" rel="noopener">Full Portfolio</a>
+     </div>
+   </section>
+ 
+@@ -948,7 +948,7 @@
+     <div class="container">
+       <p>Built by Sierra Napier · Applied ML Portfolio · Zero synthetic records</p>
+       <p style="margin-top: 0.5rem;">
+-        <a href="https://gosidehustlesisi.github.io/">← Main Portfolio</a> · 
++        <a href="https://snapaiarchitect.github.io/">← Main Portfolio</a> · 
+         <a href="interactive-dashboards/">Interactive Dashboards →</a>
+       </p>
+     </div>
+-- 
+2.43.0
+
+From 3cc3552e826034fb59af18ef65eb663960d8a2ef Mon Sep 17 00:00:00 2001
+From: Claude <noreply@anthropic.com>
+Date: Mon, 9 Nov 2026 13:42:22 -0500
+Subject: [PATCH 2/2] Pages: relative links, local avatar, fixed nav and
+ dataset links
+
+---
+ docs/applied_ml_dashboard.html                |  12 +-
+ docs/executive-summaries/index.html           |   2 +-
+ docs/index.html                               |  20 +--
+ docs/interactive-dashboards/bike-sharing.html |   2 +-
+ docs/interactive-dashboards/index.html        |  12 +-
+ .../nlp-classification.html                   |   2 +-
+ .../predictive-maintenance.html               |   2 +-
+ docs/portfolio-report.html                    |   6 +-
+ docs/projects/demand-forecasting.html         |  10 +-
+ docs/projects/nlp-text-classification.html    |  10 +-
+ docs/projects/predictive-maintenance.html     |  12 +-
+ docs/side-hustle.html                         | 122 +++++++++---------
+ 12 files changed, 106 insertions(+), 106 deletions(-)
+
+diff --git a/docs/applied_ml_dashboard.html b/docs/applied_ml_dashboard.html
+index 3c228e1..6052c40 100644
+--- a/docs/applied_ml_dashboard.html
++++ b/docs/applied_ml_dashboard.html
+@@ -33,7 +33,7 @@ const layout={paper_bgcolor:'rgba(0,0,0,0)',plot_bgcolor:'rgba(0,0,0,0)',font:{c
+ const config={responsive:true,displayModeBar:false};
+ 
+ // Bike by Hour
+-Papa.parse('https://raw.githubusercontent.com/gosidehustlesisi/sierra-applied-ml/main/projects/demand-forecasting-operations/data/hour.csv',{download:true,header:true,complete:function(r){
++Papa.parse('https://raw.githubusercontent.com/snapaiarchitect/sierra-applied-ml/main/projects/demand-forecasting-operations/data/hour.csv',{download:true,header:true,complete:function(r){
+ const hours={};
+ r.data.forEach(d=>{if(d.hr)hours[d.hr]=(hours[d.hr]||0)+parseInt(d.cnt||0);});
+ Plotly.newPlot('bike-hour',[{
+@@ -43,7 +43,7 @@ Plotly.newPlot('bike-hour',[{
+ }});
+ 
+ // Bike by Season
+-Papa.parse('https://raw.githubusercontent.com/gosidehustlesisi/sierra-applied-ml/main/projects/demand-forecasting-operations/data/day.csv',{download:true,header:true,complete:function(r){
++Papa.parse('https://raw.githubusercontent.com/snapaiarchitect/sierra-applied-ml/main/projects/demand-forecasting-operations/data/day.csv',{download:true,header:true,complete:function(r){
+ const seasons={1:'Spring',2:'Summer',3:'Fall',4:'Winter'},counts={};
+ r.data.forEach(d=>{if(d.season){const s=seasons[d.season]||d.season;counts[s]=(counts[s]||0)+parseInt(d.cnt||0);}});
+ Plotly.newPlot('bike-season',[{
+@@ -53,7 +53,7 @@ Plotly.newPlot('bike-season',[{
+ }});
+ 
+ // Newsgroups
+-Papa.parse('https://raw.githubusercontent.com/gosidehustlesisi/sierra-applied-ml/main/projects/nlp-text-classification-pipeline/data/raw/20newsgroups_stats.csv',{download:true,header:true,complete:function(r){
++Papa.parse('https://raw.githubusercontent.com/snapaiarchitect/sierra-applied-ml/main/projects/nlp-text-classification-pipeline/data/raw/20newsgroups_stats.csv',{download:true,header:true,complete:function(r){
+ const cats={},vals={};
+ r.data.forEach(d=>{if(d.category){cats[d.category]=(cats[d.category]||0)+1;vals[d.category]=(vals[d.category]||0)+parseInt(d.count||0);}});
+ Plotly.newPlot('newsgroups',[{
+@@ -63,7 +63,7 @@ Plotly.newPlot('newsgroups',[{
+ }});
+ 
+ // NASA RUL
+-Papa.parse('https://raw.githubusercontent.com/gosidehustlesisi/sierra-applied-ml/main/projects/predictive-maintenance-transit/data/combined_risk_scores.csv',{download:true,header:true,complete:function(r){
++Papa.parse('https://raw.githubusercontent.com/snapaiarchitect/sierra-applied-ml/main/projects/predictive-maintenance-transit/data/combined_risk_scores.csv',{download:true,header:true,complete:function(r){
+ const engines=[],ruls=[];
+ r.data.forEach((d,i)=>{if(i<50&&d.engine_id){engines.push(d.engine_id);ruls.push(parseFloat(d.rul||0));}});
+ Plotly.newPlot('nasa-rul',[{
+@@ -73,7 +73,7 @@ Plotly.newPlot('nasa-rul',[{
+ }});
+ 
+ // NASA Temperature vs RUL
+-Papa.parse('https://raw.githubusercontent.com/gosidehustlesisi/sierra-applied-ml/main/projects/predictive-maintenance-transit/data/combined_risk_scores.csv',{download:true,header:true,complete:function(r){
++Papa.parse('https://raw.githubusercontent.com/snapaiarchitect/sierra-applied-ml/main/projects/predictive-maintenance-transit/data/combined_risk_scores.csv',{download:true,header:true,complete:function(r){
+ const temps=[],ruls=[];
+ r.data.forEach(d=>{if(d.temperature&&d.rul){temps.push(parseFloat(d.temperature));ruls.push(parseFloat(d.rul));}});
+ Plotly.newPlot('nasa-temp',[{
+@@ -83,7 +83,7 @@ Plotly.newPlot('nasa-temp',[{
+ }});
+ 
+ // Feature Importance
+-Papa.parse('https://raw.githubusercontent.com/gosidehustlesisi/sierra-applied-ml/main/projects/demand-forecasting-operations/figures/feature_importance.csv',{download:true,header:true,complete:function(r){
++Papa.parse('https://raw.githubusercontent.com/snapaiarchitect/sierra-applied-ml/main/projects/demand-forecasting-operations/figures/feature_importance.csv',{download:true,header:true,complete:function(r){
+ const feats=[],imps=[];
+ r.data.forEach(d=>{if(d.feature&&d.importance){feats.push(d.feature);imps.push(parseFloat(d.importance));}});
+ feats.slice(0,15);imps.slice(0,15);
+diff --git a/docs/executive-summaries/index.html b/docs/executive-summaries/index.html
+index 75b8e8a..b00f1ee 100644
+--- a/docs/executive-summaries/index.html
++++ b/docs/executive-summaries/index.html
+@@ -130,7 +130,7 @@
+             <a href="exec_summary_public_sector.pdf" class="download-btn" download>Download PDF</a>
+         </div>
+ 
+-        <a href="https://gosidehustlesisi.github.io/sierra-applied-ml/" class="back-link">← Back to Portfolio</a>
++        <a href="../" class="back-link">← Back to Portfolio</a>
+     </div>
+ </body>
+ </html>
+diff --git a/docs/index.html b/docs/index.html
+index a1dad10..db92359 100644
+--- a/docs/index.html
++++ b/docs/index.html
+@@ -6,11 +6,11 @@
+   <meta name="description" content="Sierra Napier — Applied ML Portfolio. NASA C-MAPSS predictive maintenance, 20 Newsgroups NLP classification, UCI Bike Sharing demand forecasting. Real public data. Zero synthetic records.">
+   <meta property="og:title" content="Sierra Napier — Applied ML | Predictive Maintenance · NLP · Forecasting">
+   <meta property="og:description" content="3 production ML projects · 11 notebooks · 21 visualizations · NASA · UCI · sklearn. Real public data, zero synthetic records.">
+-  <meta property="og:image" content="https://raw.githubusercontent.com/snapaiarchitect/snapaiarchitect.github.io/main/assets/avatar.png">
+-  <meta property="og:url" content="https://snapaiarchitect.github.io/sierra-applied-ml/">
++  <meta property="og:image" content="./assets/avatar.png">
++  <meta property="og:url" content="./">
+   <meta property="og:type" content="website">
+   <meta name="twitter:card" content="summary_large_image">
+-  <meta name="twitter:image" content="https://raw.githubusercontent.com/snapaiarchitect/snapaiarchitect.github.io/main/assets/avatar.png">
++  <meta name="twitter:image" content="./assets/avatar.png">
+   <title>Sierra Napier — Applied ML</title>
+   <style>
+     :root {
+@@ -486,8 +486,8 @@
+   <!-- Navigation -->
+   <nav>
+     <div class="container">
+-      <a href="https://snapaiarchitect.github.io/" class="nav-brand">
+-        <img src="https://raw.githubusercontent.com/snapaiarchitect/snapaiarchitect.github.io/main/assets/avatar.png" alt="Sierra Napier">
++      <a href="https://github.com/snapaiarchitect" class="nav-brand">
++        <img src="./assets/avatar.png" alt="Sierra Napier">
+         <span>Sierra Napier</span>
+       </a>
+       <ul class="nav-links">
+@@ -683,7 +683,7 @@
+           <h3>Ensemble Forecast — Actual vs. Predicted</h3>
+           <div class="project-meta">UCI Bike Sharing · Model Toggle · 30-Day Holdout</div>
+         </div>
+-        <iframe src="https://snapaiarchitect.github.io/sierra-applied-ml/projects/demand-forecasting.html" loading="lazy" title="Demand Forecasting Interactive Chart"
++        <iframe src="./projects/demand-forecasting.html" loading="lazy" title="Demand Forecasting Interactive Chart"
+           sandbox="allow-scripts allow-same-origin allow-popups"
+           style="width:100%; height:500px; border:none; border-top: 1px solid var(--border); display:block;">
+         </iframe>
+@@ -703,7 +703,7 @@
+           <h3>NLP Text Classification</h3>
+           <div class="project-meta">20 Newsgroups · TF-IDF Heatmap · Confusion Matrix</div>
+         </div>
+-        <iframe src="https://snapaiarchitect.github.io/sierra-applied-ml/projects/nlp-text-classification.html" loading="lazy" title="NLP Classification Interactive Chart"
++        <iframe src="./projects/nlp-text-classification.html" loading="lazy" title="NLP Classification Interactive Chart"
+           sandbox="allow-scripts allow-same-origin allow-popups"
+           style="width:100%; height:500px; border:none; border-top: 1px solid var(--border); display:block;">
+         </iframe>
+@@ -723,7 +723,7 @@
+           <h3>Predictive Maintenance — NASA C-MAPSS</h3>
+           <div class="project-meta">RUL Prediction · Sensor Trajectories · Feature Importance</div>
+         </div>
+-        <iframe src="https://snapaiarchitect.github.io/sierra-applied-ml/projects/predictive-maintenance.html" loading="lazy" title="Predictive Maintenance Interactive Chart"
++        <iframe src="./projects/predictive-maintenance.html" loading="lazy" title="Predictive Maintenance Interactive Chart"
+           sandbox="allow-scripts allow-same-origin allow-popups"
+           style="width:100%; height:500px; border:none; border-top: 1px solid var(--border); display:block;">
+         </iframe>
+@@ -939,7 +939,7 @@
+       <a href="mailto:sierra.napier@e3-ai.com" class="contact-link">📧 Get In Touch</a>
+       <a href="https://github.com/snapaiarchitect/sierra-applied-ml" class="contact-link" target="_blank" rel="noopener">GitHub Repo</a>
+       <a href="https://github.com/snapaiarchitect" class="contact-link" target="_blank" rel="noopener">GitHub Profile</a>
+-      <a href="https://snapaiarchitect.github.io/" class="contact-link" target="_blank" rel="noopener">Full Portfolio</a>
++      <a href="https://github.com/snapaiarchitect" class="contact-link" target="_blank" rel="noopener">Full Portfolio</a>
+     </div>
+   </section>
+ 
+@@ -948,7 +948,7 @@
+     <div class="container">
+       <p>Built by Sierra Napier · Applied ML Portfolio · Zero synthetic records</p>
+       <p style="margin-top: 0.5rem;">
+-        <a href="https://snapaiarchitect.github.io/">← Main Portfolio</a> · 
++        <a href="https://github.com/snapaiarchitect">← Main Portfolio</a> · 
+         <a href="interactive-dashboards/">Interactive Dashboards →</a>
+       </p>
+     </div>
+diff --git a/docs/interactive-dashboards/bike-sharing.html b/docs/interactive-dashboards/bike-sharing.html
+index efd5535..aa46810 100644
+--- a/docs/interactive-dashboards/bike-sharing.html
++++ b/docs/interactive-dashboards/bike-sharing.html
+@@ -89,7 +89,7 @@
+ </head>
+ <body>
+ <nav class="nav">
+-  <div><a href="https://gosidehustlesisi.github.io/sierra-applied-ml/">← Applied ML</a></div>
++  <div><a href="../">← Applied ML</a></div>
+   <div class="nav-links">
+     <a href="bike-sharing.html">Bike Sharing</a>
+     <a href="nlp-classification.html">NLP</a>
+diff --git a/docs/interactive-dashboards/index.html b/docs/interactive-dashboards/index.html
+index 08c1a96..00a900e 100644
+--- a/docs/interactive-dashboards/index.html
++++ b/docs/interactive-dashboards/index.html
+@@ -70,12 +70,12 @@ footer a:hover{color:var(--accent-cyan);}
+ 
+ <nav>
+ <div class="container">
+-<a href="https://gosidehustlesisi.github.io/" class="nav-brand">
+-<img src="https://raw.githubusercontent.com/gosidehustlesisi/gosidehustlesisi.github.io/main/assets/avatar.png" alt="Sierra Napier">
++<a href="https://github.com/snapaiarchitect" class="nav-brand">
++<img src="../assets/avatar.png" alt="Sierra Napier">
+ <span>Sierra Napier</span>
+ </a>
+ <ul class="nav-links">
+-<li><a href="https://gosidehustlesisi.github.io/sierra-applied-ml/">← Applied ML</a></li>
++<li><a href="../">← Applied ML</a></li>
+ <li><a href="bike-sharing.html">🚲 Bike Sharing</a></li>
+ <li><a href="nlp-classification.html">📊 NLP</a></li>
+ <li><a href="predictive-maintenance.html">🔧 NASA</a></li>
+@@ -149,9 +149,9 @@ footer a:hover{color:var(--accent-cyan);}
+ <div class="container">
+ <p>Built with real public data — NASA C-MAPSS, UCI Bike Sharing, 20 Newsgroups. Zero synthetic records.</p>
+ <p style="margin-top:0.75rem;">
+-<a href="https://gosidehustlesisi.github.io/sierra-applied-ml/">← Applied ML Home</a> · 
+-<a href="https://gosidehustlesisi.github.io/">Main Portfolio</a> · 
+-<a href="https://github.com/gosidehustlesisi/sierra-applied-ml">GitHub</a>
++<a href="../">← Applied ML Home</a> · 
++<a href="https://github.com/snapaiarchitect">Main Portfolio</a> · 
++<a href="https://github.com/snapaiarchitect/sierra-applied-ml">GitHub</a>
+ </p>
+ <p style="margin-top:0.5rem;font-size:0.7rem;">© Sierra Napier · Real data, real systems, real impact.</p>
+ </div>
+diff --git a/docs/interactive-dashboards/nlp-classification.html b/docs/interactive-dashboards/nlp-classification.html
+index 6ef4a81..00bf177 100644
+--- a/docs/interactive-dashboards/nlp-classification.html
++++ b/docs/interactive-dashboards/nlp-classification.html
+@@ -89,7 +89,7 @@
+ </head>
+ <body>
+ <nav class="nav">
+-  <div><a href="https://gosidehustlesisi.github.io/sierra-applied-ml/">← Applied ML</a></div>
++  <div><a href="../">← Applied ML</a></div>
+   <div class="nav-links">
+     <a href="bike-sharing.html">Bike Sharing</a>
+     <a href="nlp-classification.html">NLP</a>
+diff --git a/docs/interactive-dashboards/predictive-maintenance.html b/docs/interactive-dashboards/predictive-maintenance.html
+index 15414f5..34f86bb 100644
+--- a/docs/interactive-dashboards/predictive-maintenance.html
++++ b/docs/interactive-dashboards/predictive-maintenance.html
+@@ -89,7 +89,7 @@
+ </head>
+ <body>
+ <nav class="nav">
+-  <div><a href="https://gosidehustlesisi.github.io/sierra-applied-ml/">← Applied ML</a></div>
++  <div><a href="../">← Applied ML</a></div>
+   <div class="nav-links">
+     <a href="bike-sharing.html">Bike Sharing</a>
+     <a href="nlp-classification.html">NLP</a>
+diff --git a/docs/portfolio-report.html b/docs/portfolio-report.html
+index 49de6c5..165a58c 100644
+--- a/docs/portfolio-report.html
++++ b/docs/portfolio-report.html
+@@ -168,7 +168,7 @@
+             </div>
+             <div class="contact">
+                 <div>📧 book@baldbeautymua.com</div>
+-                <div>🔗 <a href="https://github.com/gosidehustlesisi">github.com/gosidehustlesisi</a></div>
++                <div>🔗 <a href="https://github.com/snapaiarchitect">github.com/snapaiarchitect</a></div>
+                 <div>💼 <a href="https://linkedin.com/in/sierran">linkedin.com/in/sierran</a></div>
+                 <div>🌐 <a href="https://e3-ai.com">e3-ai.com</a></div>
+             </div>
+@@ -382,12 +382,12 @@
+             <div class="two-col">
+                 <div class="highlight-box">
+                     <strong>🐙 GitHub Repository:</strong><br>
+-                    <a href="https://github.com/gosidehustlesisi/sierra-applied-ml">github.com/gosidehustlesisi/sierra-applied-ml</a><br>
++                    <a href="https://github.com/snapaiarchitect/sierra-applied-ml">github.com/snapaiarchitect/sierra-applied-ml</a><br>
+                     <span style="font-size: 10px; color: #666;">All notebooks executable. All outputs real. 42 files, 3,356 lines changed in latest commit.</span>
+                 </div>
+                 <div class="highlight-box">
+                     <strong>🌐 Live Portfolio Site:</strong><br>
+-                    <a href="https://gosidehustlesisi.github.io/sierra-applied-ml">gosidehustlesisi.github.io/sierra-applied-ml</a><br>
++                    <a href="./">snapaiarchitect.github.io/sierra-applied-ml</a><br>
+                     <span style="font-size: 10px; color: #666;">Interactive project gallery with rendered notebook previews.</span>
+                 </div>
+             </div>
+diff --git a/docs/projects/demand-forecasting.html b/docs/projects/demand-forecasting.html
+index 0ae2f6c..ce8f86b 100644
+--- a/docs/projects/demand-forecasting.html
++++ b/docs/projects/demand-forecasting.html
+@@ -118,9 +118,9 @@
+ </head>
+ <body>
+ <nav class="nav">
+-  <div><a href="https://gosidehustlesisi.github.io/sierra-applied-ml/">← Applied ML Portfolio</a></div>
++  <div><a href="../">← Applied ML Portfolio</a></div>
+   <div class="nav-links">
+-    <a href="bike-sharing.html">Bike Sharing</a>
++    <a href="demand-forecasting.html">Bike Sharing</a>
+     <a href="nlp-text-classification.html">NLP</a>
+     <a href="predictive-maintenance.html">NASA</a>
+   </div>
+@@ -241,10 +241,10 @@
+   <div class="section">
+     <h2>Project Resources</h2>
+     <div class="link-row">
+-      <a href="https://github.com/gosidehustlesisi/sierra-applied-ml/tree/main/projects/demand-forecasting-operations">📁 GitHub Repo</a>
+-      <a href="https://github.com/gosidehustlesisi/sierra-applied-ml/blob/main/projects/demand-forecasting-operations/notebooks/demand_forecasting_FINAL.ipynb">📓 Final Notebook</a>
++      <a href="https://github.com/snapaiarchitect/sierra-applied-ml/tree/main/projects/demand-forecasting-operations">📁 GitHub Repo</a>
++      <a href="https://github.com/snapaiarchitect/sierra-applied-ml/blob/main/projects/demand-forecasting-operations/notebooks/demand_forecasting_FINAL.ipynb">📓 Final Notebook</a>
+       <a href="https://archive.ics.uci.edu/ml/datasets/bike+sharing+dataset">📊 UCI Dataset</a>
+-      <a href="https://gosidehustlesisi.github.io/sierra-applied-ml/interactive-dashboards/bike-sharing.html">🎛️ Full Dashboard</a>
++      <a href="../interactive-dashboards/bike-sharing.html">🎛️ Full Dashboard</a>
+     </div>
+   </div>
+ </div>
+diff --git a/docs/projects/nlp-text-classification.html b/docs/projects/nlp-text-classification.html
+index f2847da..bcd8331 100644
+--- a/docs/projects/nlp-text-classification.html
++++ b/docs/projects/nlp-text-classification.html
+@@ -118,9 +118,9 @@
+ </head>
+ <body>
+ <nav class="nav">
+-  <div><a href="https://gosidehustlesisi.github.io/sierra-applied-ml/">← Applied ML Portfolio</a></div>
++  <div><a href="../">← Applied ML Portfolio</a></div>
+   <div class="nav-links">
+-    <a href="bike-sharing.html">Bike Sharing</a>
++    <a href="demand-forecasting.html">Bike Sharing</a>
+     <a href="nlp-text-classification.html">NLP</a>
+     <a href="predictive-maintenance.html">NASA</a>
+   </div>
+@@ -224,10 +224,10 @@
+   <div class="section">
+     <h2>Project Resources</h2>
+     <div class="link-row">
+-      <a href="https://github.com/gosidehustlesisi/sierra-applied-ml/tree/main/projects/nlp-text-classification-pipeline">📁 GitHub Repo</a>
+-      <a href="https://github.com/gosidehustlesisi/sierra-applied-ml/blob/main/projects/nlp-text-classification-pipeline/notebooks/nlp_text_classification_FINAL.ipynb">📓 Final Notebook</a>
++      <a href="https://github.com/snapaiarchitect/sierra-applied-ml/tree/main/projects/nlp-text-classification-pipeline">📁 GitHub Repo</a>
++      <a href="https://github.com/snapaiarchitect/sierra-applied-ml/blob/main/projects/nlp-text-classification-pipeline/notebooks/nlp_text_classification_FINAL.ipynb">📓 Final Notebook</a>
+       <a href="https://scikit-learn.org/0.19/datasets/twenty_newsgroups.html">📊 20 Newsgroups Dataset</a>
+-      <a href="https://gosidehustlesisi.github.io/sierra-applied-ml/interactive-dashboards/nlp-classification.html">🎛️ Full Dashboard</a>
++      <a href="../interactive-dashboards/nlp-classification.html">🎛️ Full Dashboard</a>
+     </div>
+   </div>
+ </div>
+diff --git a/docs/projects/predictive-maintenance.html b/docs/projects/predictive-maintenance.html
+index dcb1282..1729077 100644
+--- a/docs/projects/predictive-maintenance.html
++++ b/docs/projects/predictive-maintenance.html
+@@ -118,9 +118,9 @@
+ </head>
+ <body>
+ <nav class="nav">
+-  <div><a href="https://gosidehustlesisi.github.io/sierra-applied-ml/">← Applied ML Portfolio</a></div>
++  <div><a href="../">← Applied ML Portfolio</a></div>
+   <div class="nav-links">
+-    <a href="bike-sharing.html">Bike Sharing</a>
++    <a href="demand-forecasting.html">Bike Sharing</a>
+     <a href="nlp-text-classification.html">NLP</a>
+     <a href="predictive-maintenance.html">NASA</a>
+   </div>
+@@ -233,10 +233,10 @@
+   <div class="section">
+     <h2>Project Resources</h2>
+     <div class="link-row">
+-      <a href="https://github.com/gosidehustlesisi/sierra-applied-ml/tree/main/projects/predictive-maintenance-transit">📁 GitHub Repo</a>
+-      <a href="https://github.com/gosidehustlesisi/sierra-applied-ml/blob/main/projects/predictive-maintenance-transit/notebooks/predictive_maintenance_analysis.ipynb">📓 Analysis Notebook</a>
+-      <a href="https://data.nasa.gov/download/e5gs-fg3c/application%2Fx-zip-compressed">📊 NASA C-MAPSS Dataset</a>
+-      <a href="https://gosidehustlesisi.github.io/sierra-applied-ml/interactive-dashboards/predictive-maintenance.html">🎛️ Full Dashboard</a>
++      <a href="https://github.com/snapaiarchitect/sierra-applied-ml/tree/main/projects/predictive-maintenance-transit">📁 GitHub Repo</a>
++      <a href="https://github.com/snapaiarchitect/sierra-applied-ml/blob/main/projects/predictive-maintenance-transit/notebooks/predictive_maintenance_analysis.ipynb">📓 Analysis Notebook</a>
++      <a href="https://ti.arc.nasa.gov/tech/dash/groups/pcoe/prognostic-data-repository/">📊 NASA C-MAPSS Dataset</a>
++      <a href="../interactive-dashboards/predictive-maintenance.html">🎛️ Full Dashboard</a>
+     </div>
+   </div>
+ </div>
+diff --git a/docs/side-hustle.html b/docs/side-hustle.html
+index 48ef418..be20757 100644
+--- a/docs/side-hustle.html
++++ b/docs/side-hustle.html
+@@ -8,7 +8,7 @@
+     <!-- Open Graph -->
+     <meta property="og:title" content="Sierra Napier — Fractional CMO & AI Architecture Consultant">
+     <meta property="og:description" content="8 repositories · 24+ projects · 50+ notebooks · 1M+ real records. Data science, AI architecture, and BI analytics for teams that need results.">
+-    <meta property="og:url" content="https://gosidehustlesisi.github.io/sierra-applied-ml/side-hustle.html">
++    <meta property="og:url" content="./side-hustle.html">
+     <meta property="og:type" content="website">
+     
+     <title>Sierra Napier — Fractional CMO & AI Architecture Consultant</title>
+@@ -564,7 +564,7 @@
+     <nav>
+         <div class="container">
+             <div class="nav-inner">
+-                <a href="https://gosidehustlesisi.github.io/sierra-applied-ml/" class="nav-brand">
++                <a href="./" class="nav-brand">
+                     Sierra Napier
+                 </a>
+                 <ul class="nav-links">
+@@ -586,7 +586,7 @@
+             </p>
+             <div class="hero-cta">
+                 <a href="mailto:book@baldbeautymua.com" class="btn btn-primary">Book a Strategy Session</a>
+-                <a href="https://github.com/gosidehustlesisi" class="btn btn-secondary">View GitHub</a>
++                <a href="https://github.com/snapaiarchitect" class="btn btn-secondary">View GitHub</a>
+             </div>
+         </div>
+     </header>
+@@ -703,8 +703,8 @@
+                         </div>
+                         <p class="project-value">Identifies which 5 sensors predict engine failure 25+ cycles in advance — a 75% infrastructure cost reduction for IoT fleets.</p>
+                         <span class="project-metric">94% RUL Accuracy</span>
+-                        <a class="project-link" href="https://github.com/gosidehustlesisi/sierra-applied-ml/tree/main/projects/predictive-maintenance-transit">View Project →</a>
+-                        <div style="margin-top: 0.5rem; font-size: 0.75rem; color: var(--text-muted);">📓 <a href="https://github.com/gosidehustlesisi/sierra-applied-ml/tree/main/projects/predictive-maintenance-transit/notebooks" style="color: var(--accent-cyan); text-decoration: none;">4 notebooks</a></div>
++                        <a class="project-link" href="https://github.com/snapaiarchitect/sierra-applied-ml/tree/main/projects/predictive-maintenance-transit">View Project →</a>
++                        <div style="margin-top: 0.5rem; font-size: 0.75rem; color: var(--text-muted);">📓 <a href="https://github.com/snapaiarchitect/sierra-applied-ml/tree/main/projects/predictive-maintenance-transit/notebooks" style="color: var(--accent-cyan); text-decoration: none;">4 notebooks</a></div>
+                     </div>
+                     <div class="project-card">
+                         <div class="project-header">
+@@ -719,8 +719,8 @@
+                         </div>
+                         <p class="project-value">TF-IDF + Naive Bayes scores 68% on 20 categories and runs 400× faster than BERT. The right trade-off for production text tasks.</p>
+                         <span class="project-metric">400× Faster than BERT</span>
+-                        <a class="project-link" href="https://github.com/gosidehustlesisi/sierra-applied-ml/tree/main/projects/nlp-text-classification-pipeline">View Project →</a>
+-                        <div style="margin-top: 0.5rem; font-size: 0.75rem; color: var(--text-muted);">📓 <a href="https://github.com/gosidehustlesisi/sierra-applied-ml/tree/main/projects/nlp-text-classification-pipeline/notebooks" style="color: var(--accent-cyan); text-decoration: none;">5 notebooks</a></div>
++                        <a class="project-link" href="https://github.com/snapaiarchitect/sierra-applied-ml/tree/main/projects/nlp-text-classification-pipeline">View Project →</a>
++                        <div style="margin-top: 0.5rem; font-size: 0.75rem; color: var(--text-muted);">📓 <a href="https://github.com/snapaiarchitect/sierra-applied-ml/tree/main/projects/nlp-text-classification-pipeline/notebooks" style="color: var(--accent-cyan); text-decoration: none;">5 notebooks</a></div>
+                     </div>
+                     <div class="project-card">
+                         <div class="project-header">
+@@ -735,12 +735,12 @@
+                         </div>
+                         <p class="project-value">Calendar drives demand, not weather. Ensemble forecast reduces overstocking by 22% on predictable low-demand windows.</p>
+                         <span class="project-metric">73% Variance Explained</span>
+-                        <a class="project-link" href="https://github.com/gosidehustlesisi/sierra-applied-ml/tree/main/projects/demand-forecasting-operations">View Project →</a>
+-                        <div style="margin-top: 0.5rem; font-size: 0.75rem; color: var(--text-muted);">📓 <a href="https://github.com/gosidehustlesisi/sierra-applied-ml/blob/main/projects/demand-forecasting-operations/notebooks/demand_forecasting_analysis.ipynb" style="color: var(--accent-cyan); text-decoration: none;">1 notebook</a></div>
++                        <a class="project-link" href="https://github.com/snapaiarchitect/sierra-applied-ml/tree/main/projects/demand-forecasting-operations">View Project →</a>
++                        <div style="margin-top: 0.5rem; font-size: 0.75rem; color: var(--text-muted);">📓 <a href="https://github.com/snapaiarchitect/sierra-applied-ml/blob/main/projects/demand-forecasting-operations/notebooks/demand_forecasting_analysis.ipynb" style="color: var(--accent-cyan); text-decoration: none;">1 notebook</a></div>
+                     </div>
+                 </div>
+                 <div style="text-align: right; margin-top: 1rem;">
+-                    <a class="project-link" href="https://github.com/gosidehustlesisi/sierra-applied-ml">View Full Repository →</a>
++                    <a class="project-link" href="https://github.com/snapaiarchitect/sierra-applied-ml">View Full Repository →</a>
+                 </div>
+             </div>
+ 
+@@ -765,8 +765,8 @@
+                         </div>
+                         <p class="project-value">Auto-flags 15–20 target papers from 450+ machine learning publications. Domain-native taxonomies beat LDA clustering for actionable research intelligence.</p>
+                         <span class="project-metric">cs.AI +27% Growth Detected</span>
+-                        <a class="project-link" href="https://github.com/gosidehustlesisi/sierra-genai-engineering/tree/main/projects/arxiv-classifier-research-engine">View Project →</a>
+-                        <div style="margin-top: 0.5rem; font-size: 0.75rem; color: var(--text-muted);">📓 <a href="https://github.com/gosidehustlesisi/sierra-genai-engineering/blob/main/projects/arxiv-abstracts/notebooks/arxiv_analysis.ipynb" style="color: var(--accent-cyan); text-decoration: none;">1 notebook</a></div>
++                        <a class="project-link" href="https://github.com/snapaiarchitect/sierra-genai-engineering/tree/main/projects/arxiv-classifier-research-engine">View Project →</a>
++                        <div style="margin-top: 0.5rem; font-size: 0.75rem; color: var(--text-muted);">📓 <a href="https://github.com/snapaiarchitect/sierra-genai-engineering/blob/main/projects/arxiv-abstracts/notebooks/arxiv_analysis.ipynb" style="color: var(--accent-cyan); text-decoration: none;">1 notebook</a></div>
+                     </div>
+                     <div class="project-card">
+                         <div class="project-header">
+@@ -781,8 +781,8 @@
+                         </div>
+                         <p class="project-value">Predicts case controversy from text structure, not content. Contested opinions cite 3× more precedent per paragraph — predicts amicus brief volume before briefs arrive.</p>
+                         <span class="project-metric">3× Citation Density Signal</span>
+-                        <a class="project-link" href="https://github.com/gosidehustlesisi/sierra-genai-engineering/tree/main/projects/scotus-opinions">View Project →</a>
+-                        <div style="margin-top: 0.5rem; font-size: 0.75rem; color: var(--text-muted);">📓 <a href="https://github.com/gosidehustlesisi/sierra-genai-engineering/blob/main/projects/scotus-opinions/notebooks/scotus_analysis.ipynb" style="color: var(--accent-cyan); text-decoration: none;">1 notebook</a></div>
++                        <a class="project-link" href="https://github.com/snapaiarchitect/sierra-genai-engineering/tree/main/projects/scotus-opinions">View Project →</a>
++                        <div style="margin-top: 0.5rem; font-size: 0.75rem; color: var(--text-muted);">📓 <a href="https://github.com/snapaiarchitect/sierra-genai-engineering/blob/main/projects/scotus-opinions/notebooks/scotus_analysis.ipynb" style="color: var(--accent-cyan); text-decoration: none;">1 notebook</a></div>
+                     </div>
+                     <div class="project-card">
+                         <div class="project-header">
+@@ -797,8 +797,8 @@
+                         </div>
+                         <p class="project-value">Automated literature screening in 30 seconds vs weeks of manual review. IL-6 and TNF-alpha flagged as top immunotherapy biomarkers with statistical validation.</p>
+                         <span class="project-metric">12 Biomarkers Tracked</span>
+-                        <a class="project-link" href="https://github.com/gosidehustlesisi/sierra-genai-engineering/tree/main/projects/pubmed-research">View Project →</a>
+-                        <div style="margin-top: 0.5rem; font-size: 0.75rem; color: var(--text-muted);">📓 <a href="https://github.com/gosidehustlesisi/sierra-genai-engineering/blob/main/projects/pubmed-research/notebooks/pubmed_analysis.ipynb" style="color: var(--accent-cyan); text-decoration: none;">1 notebook</a></div>
++                        <a class="project-link" href="https://github.com/snapaiarchitect/sierra-genai-engineering/tree/main/projects/pubmed-research">View Project →</a>
++                        <div style="margin-top: 0.5rem; font-size: 0.75rem; color: var(--text-muted);">📓 <a href="https://github.com/snapaiarchitect/sierra-genai-engineering/blob/main/projects/pubmed-research/notebooks/pubmed_analysis.ipynb" style="color: var(--accent-cyan); text-decoration: none;">1 notebook</a></div>
+                     </div>
+                     <div class="project-card">
+                         <div class="project-header">
+@@ -813,8 +813,8 @@
+                         </div>
+                         <p class="project-value">Retrieval-Augmented Generation pipeline with dense passage retrieval, chunking strategy comparison, and answer relevance scoring. Evaluates which retrieval configs actually improve LLM output quality versus hallucination.</p>
+                         <span class="project-metric">Dense Passage Retrieval</span>
+-                        <a class="project-link" href="https://github.com/gosidehustlesisi/sierra-genai-engineering/tree/main/projects/rag-knowledge-base">View Project →</a>
+-                        <div style="margin-top: 0.5rem; font-size: 0.75rem; color: var(--text-muted);">📓 <a href="https://github.com/gosidehustlesisi/sierra-genai-engineering/tree/main/projects/rag-knowledge-base/notebooks" style="color: var(--accent-cyan); text-decoration: none;">2 notebooks</a></div>
++                        <a class="project-link" href="https://github.com/snapaiarchitect/sierra-genai-engineering/tree/main/projects/rag-knowledge-base">View Project →</a>
++                        <div style="margin-top: 0.5rem; font-size: 0.75rem; color: var(--text-muted);">📓 <a href="https://github.com/snapaiarchitect/sierra-genai-engineering/tree/main/projects/rag-knowledge-base/notebooks" style="color: var(--accent-cyan); text-decoration: none;">2 notebooks</a></div>
+                     </div>
+                     <div class="project-card">
+                         <div class="project-header">
+@@ -829,8 +829,8 @@
+                         </div>
+                         <p class="project-value">Zero-shot and few-shot document classification using instruction-tuned LLMs. Compares prompt engineering strategies against fine-tuned BERT baselines on academic paper categorization.</p>
+                         <span class="project-metric">Zero-shot vs Fine-tuned</span>
+-                        <a class="project-link" href="https://github.com/gosidehustlesisi/sierra-genai-engineering/tree/main/projects/llm-document-classification">View Project →</a>
+-                        <div style="margin-top: 0.5rem; font-size: 0.75rem; color: var(--text-muted);">📓 <a href="https://github.com/gosidehustlesisi/sierra-genai-engineering/tree/main/projects/llm-document-classification/notebooks" style="color: var(--accent-cyan); text-decoration: none;">2 notebooks</a></div>
++                        <a class="project-link" href="https://github.com/snapaiarchitect/sierra-genai-engineering/tree/main/projects/llm-document-classification">View Project →</a>
++                        <div style="margin-top: 0.5rem; font-size: 0.75rem; color: var(--text-muted);">📓 <a href="https://github.com/snapaiarchitect/sierra-genai-engineering/tree/main/projects/llm-document-classification/notebooks" style="color: var(--accent-cyan); text-decoration: none;">2 notebooks</a></div>
+                     </div>
+                     <div class="project-card">
+                         <div class="project-header">
+@@ -845,12 +845,12 @@
+                         </div>
+                         <p class="project-value">End-to-end ML pipeline with automated training, model versioning, artifact tracking, and deployment gates. Containerized inference with drift detection and rollback triggers.</p>
+                         <span class="project-metric">CI/CD for ML Models</span>
+-                        <a class="project-link" href="https://github.com/gosidehustlesisi/sierra-genai-engineering/tree/main/projects/ai-ready-mlops">View Project →</a>
+-                        <div style="margin-top: 0.5rem; font-size: 0.75rem; color: var(--text-muted);">📓 <a href="https://github.com/gosidehustlesisi/sierra-genai-engineering/tree/main/projects/ai-ready-mlops/notebooks" style="color: var(--accent-cyan); text-decoration: none;">2 notebooks</a></div>
++                        <a class="project-link" href="https://github.com/snapaiarchitect/sierra-genai-engineering/tree/main/projects/ai-ready-mlops">View Project →</a>
++                        <div style="margin-top: 0.5rem; font-size: 0.75rem; color: var(--text-muted);">📓 <a href="https://github.com/snapaiarchitect/sierra-genai-engineering/tree/main/projects/ai-ready-mlops/notebooks" style="color: var(--accent-cyan); text-decoration: none;">2 notebooks</a></div>
+                     </div>
+                 </div>
+                 <div style="text-align: right; margin-top: 1rem;">
+-                    <a class="project-link" href="https://github.com/gosidehustlesisi/sierra-genai-engineering">View Full Repository →</a>
++                    <a class="project-link" href="https://github.com/snapaiarchitect/sierra-genai-engineering">View Full Repository →</a>
+                 </div>
+             </div>
+ 
+@@ -875,8 +875,8 @@
+                         </div>
+                         <p class="project-value">State-by-state fatality heatmaps identifying safety gaps for insurance and fleet operators. Geospatial analysis of 41K crash records by vehicle type and roadway.</p>
+                         <span class="project-metric">41K Records Analyzed</span>
+-                        <a class="project-link" href="https://github.com/gosidehustlesisi/sierra-mobility-data/tree/main/projects/nhtsa-safety">View Project →</a>
+-                        <div style="margin-top: 0.5rem; font-size: 0.75rem; color: var(--text-muted);">📓 <a href="https://github.com/gosidehustlesisi/sierra-mobility-data/blob/main/projects/nhtsa-safety/notebooks/nhtsa_safety_analysis.ipynb" style="color: var(--accent-cyan); text-decoration: none;">1 notebook</a></div>
++                        <a class="project-link" href="https://github.com/snapaiarchitect/sierra-mobility-data/tree/main/projects/nhtsa-safety">View Project →</a>
++                        <div style="margin-top: 0.5rem; font-size: 0.75rem; color: var(--text-muted);">📓 <a href="https://github.com/snapaiarchitect/sierra-mobility-data/blob/main/projects/nhtsa-safety/notebooks/nhtsa_safety_analysis.ipynb" style="color: var(--accent-cyan); text-decoration: none;">1 notebook</a></div>
+                     </div>
+                     <div class="project-card">
+                         <div class="project-header">
+@@ -891,11 +891,11 @@
+                         </div>
+                         <p class="project-value">Charging station density vs EV adoption gap analysis. Infrastructure investment prioritization for municipal planning and energy utilities.</p>
+                         <span class="project-metric">50-State Coverage</span>
+-                        <a class="project-link" href="https://github.com/gosidehustlesisi/sierra-mobility-data/tree/main/projects/ev-charging-infrastructure">View Project →</a>
++                        <a class="project-link" href="https://github.com/snapaiarchitect/sierra-mobility-data/tree/main/projects/ev-charging-infrastructure">View Project →</a>
+                     </div>
+                 </div>
+                 <div style="text-align: right; margin-top: 1rem;">
+-                    <a class="project-link" href="https://github.com/gosidehustlesisi/sierra-mobility-data">View Full Repository →</a>
++                    <a class="project-link" href="https://github.com/snapaiarchitect/sierra-mobility-data">View Full Repository →</a>
+                 </div>
+             </div>
+ 
+@@ -920,8 +920,8 @@
+                         </div>
+                         <p class="project-value">Federal capital portfolio analysis — obligation trends, contractor concentration risk, and program-level spend efficiency across $4T in historical procurement.</p>
+                         <span class="project-metric">$4T Procurement Analyzed</span>
+-                        <a class="project-link" href="https://github.com/gosidehustlesisi/sierra-pmo-analytics/tree/main/projects/capital-portfolio-governance">View Project →</a>
+-                        <div style="margin-top: 0.5rem; font-size: 0.75rem; color: var(--text-muted);">📓 <a href="https://github.com/gosidehustlesisi/sierra-pmo-analytics/blob/main/projects/capital-portfolio-governance/notebooks/capital_portfolio_analysis.ipynb" style="color: var(--accent-cyan); text-decoration: none;">1 notebook</a></div>
++                        <a class="project-link" href="https://github.com/snapaiarchitect/sierra-pmo-analytics/tree/main/projects/capital-portfolio-governance">View Project →</a>
++                        <div style="margin-top: 0.5rem; font-size: 0.75rem; color: var(--text-muted);">📓 <a href="https://github.com/snapaiarchitect/sierra-pmo-analytics/blob/main/projects/capital-portfolio-governance/notebooks/capital_portfolio_analysis.ipynb" style="color: var(--accent-cyan); text-decoration: none;">1 notebook</a></div>
+                     </div>
+                     <div class="project-card">
+                         <div class="project-header">
+@@ -936,11 +936,11 @@
+                         </div>
+                         <p class="project-value">Program performance scorecards with obligation burn-rate alerts, contractor diversity tracking, and compliance risk heatmaps for federal program executives.</p>
+                         <span class="project-metric">Real-Time SAM.gov Feed</span>
+-                        <a class="project-link" href="https://github.com/gosidehustlesisi/sierra-pmo-analytics/tree/main/projects/executive-decision-support">View Project →</a>
++                        <a class="project-link" href="https://github.com/snapaiarchitect/sierra-pmo-analytics/tree/main/projects/executive-decision-support">View Project →</a>
+                     </div>
+                 </div>
+                 <div style="text-align: right; margin-top: 1rem;">
+-                    <a class="project-link" href="https://github.com/gosidehustlesisi/sierra-pmo-analytics">View Full Repository →</a>
++                    <a class="project-link" href="https://github.com/snapaiarchitect/sierra-pmo-analytics">View Full Repository →</a>
+                 </div>
+             </div>
+ 
+@@ -965,8 +965,8 @@
+                         </div>
+                         <p class="project-value">Agency data catalog audit — redundancy detection, gap analysis, and update frequency monitoring across 144K federal datasets. Turns governance from cost center to risk management tool.</p>
+                         <span class="project-metric">144K Datasets Cataloged</span>
+-                        <a class="project-link" href="https://github.com/gosidehustlesisi/sierra-data-governance/tree/main/projects/data-governance-dashboard">View Project →</a>
+-                        <div style="margin-top: 0.5rem; font-size: 0.75rem; color: var(--text-muted);">📓 <a href="https://github.com/gosidehustlesisi/sierra-data-governance/blob/main/projects/data-governance-dashboard/notebooks/governance_dashboard.ipynb" style="color: var(--accent-cyan); text-decoration: none;">1 notebook</a></div>
++                        <a class="project-link" href="https://github.com/snapaiarchitect/sierra-data-governance/tree/main/projects/data-governance-dashboard">View Project →</a>
++                        <div style="margin-top: 0.5rem; font-size: 0.75rem; color: var(--text-muted);">📓 <a href="https://github.com/snapaiarchitect/sierra-data-governance/blob/main/projects/data-governance-dashboard/notebooks/governance_dashboard.ipynb" style="color: var(--accent-cyan); text-decoration: none;">1 notebook</a></div>
+                     </div>
+                     <div class="project-card">
+                         <div class="project-header">
+@@ -981,8 +981,8 @@
+                         </div>
+                         <p class="project-value">Processing time distribution, backlog trend analysis, and exemption rate monitoring. Identifies agencies exceeding 20-day SLA before public trust erodes.</p>
+                         <span class="project-metric">1.28M Requests Tracked</span>
+-                        <a class="project-link" href="https://github.com/gosidehustlesisi/sierra-data-governance/tree/main/projects/foia-compliance-automation">View Project →</a>
+-                        <div style="margin-top: 0.5rem; font-size: 0.75rem; color: var(--text-muted);">📓 <a href="https://github.com/gosidehustlesisi/sierra-data-governance/blob/main/projects/foia-compliance-automation/notebooks/foia_pipeline.ipynb" style="color: var(--accent-cyan); text-decoration: none;">1 notebook</a></div>
++                        <a class="project-link" href="https://github.com/snapaiarchitect/sierra-data-governance/tree/main/projects/foia-compliance-automation">View Project →</a>
++                        <div style="margin-top: 0.5rem; font-size: 0.75rem; color: var(--text-muted);">📓 <a href="https://github.com/snapaiarchitect/sierra-data-governance/blob/main/projects/foia-compliance-automation/notebooks/foia_pipeline.ipynb" style="color: var(--accent-cyan); text-decoration: none;">1 notebook</a></div>
+                     </div>
+                     <div class="project-card">
+                         <div class="project-header">
+@@ -997,8 +997,8 @@
+                         </div>
+                         <p class="project-value">Agency compliance scoring and policy document lifecycle monitoring. Flags expired guidance creating compliance gaps before audits hit.</p>
+                         <span class="project-metric">73/100 Avg Compliance</span>
+-                        <a class="project-link" href="https://github.com/gosidehustlesisi/sierra-data-governance/tree/main/projects/omb-guidance">View Project →</a>
+-                        <div style="margin-top: 0.5rem; font-size: 0.75rem; color: var(--text-muted);">📓 <a href="https://github.com/gosidehustlesisi/sierra-data-governance/blob/main/projects/omb-guidance/notebooks/omb_policy_analysis.ipynb" style="color: var(--accent-cyan); text-decoration: none;">1 notebook</a></div>
++                        <a class="project-link" href="https://github.com/snapaiarchitect/sierra-data-governance/tree/main/projects/omb-guidance">View Project →</a>
++                        <div style="margin-top: 0.5rem; font-size: 0.75rem; color: var(--text-muted);">📓 <a href="https://github.com/snapaiarchitect/sierra-data-governance/blob/main/projects/omb-guidance/notebooks/omb_policy_analysis.ipynb" style="color: var(--accent-cyan); text-decoration: none;">1 notebook</a></div>
+                     </div>
+                     <div class="project-card">
+                         <div class="project-header">
+@@ -1013,11 +1013,11 @@
+                         </div>
+                         <p class="project-value">Automated metadata completeness scoring, schema validation, and freshness auditing across federal data catalogs. Identifies broken links, missing descriptions, and stale datasets before they propagate downstream.</p>
+                         <span class="project-metric">Schema + Freshness Audit</span>
+-                        <a class="project-link" href="https://github.com/gosidehustlesisi/sierra-data-governance/tree/main/projects/metadata-quality-framework">View Project →</a>
++                        <a class="project-link" href="https://github.com/snapaiarchitect/sierra-data-governance/tree/main/projects/metadata-quality-framework">View Project →</a>
+                     </div>
+                 </div>
+                 <div style="text-align: right; margin-top: 1rem;">
+-                    <a class="project-link" href="https://github.com/gosidehustlesisi/sierra-data-governance">View Full Repository →</a>
++                    <a class="project-link" href="https://github.com/snapaiarchitect/sierra-data-governance">View Full Repository →</a>
+                 </div>
+             </div>
+ 
+@@ -1042,8 +1042,8 @@
+                         </div>
+                         <p class="project-value">Industry benchmarking, pay equity gap analysis, and representation trend tracking. Federal contractor compliance scoring against EEOC standards.</p>
+                         <span class="project-metric">20+ Industries Benchmarked</span>
+-                        <a class="project-link" href="https://github.com/gosidehustlesisi/sierra-people-analytics/tree/main/projects/workforce-diversity">View Project →</a>
+-                        <div style="margin-top: 0.5rem; font-size: 0.75rem; color: var(--text-muted);">📓 <a href="https://github.com/gosidehustlesisi/sierra-people-analytics/tree/main/projects/dei-executive-dashboard/notebooks" style="color: var(--accent-cyan); text-decoration: none;">4 notebooks</a></div>
++                        <a class="project-link" href="https://github.com/snapaiarchitect/sierra-people-analytics/tree/main/projects/workforce-diversity">View Project →</a>
++                        <div style="margin-top: 0.5rem; font-size: 0.75rem; color: var(--text-muted);">📓 <a href="https://github.com/snapaiarchitect/sierra-people-analytics/tree/main/projects/dei-executive-dashboard/notebooks" style="color: var(--accent-cyan); text-decoration: none;">4 notebooks</a></div>
+                     </div>
+                     <div class="project-card">
+                         <div class="project-header">
+@@ -1058,8 +1058,8 @@
+                         </div>
+                         <p class="project-value">Turnover risk scoring with demographic, tenure, and compensation predictors. Early warning system for HR teams to intervene before key departures.</p>
+                         <span class="project-metric">Attrition Risk Scoring</span>
+-                        <a class="project-link" href="https://github.com/gosidehustlesisi/sierra-people-analytics/tree/main/projects/employee-attrition">View Project →</a>
+-                        <div style="margin-top: 0.5rem; font-size: 0.75rem; color: var(--text-muted);">📓 <a href="https://github.com/gosidehustlesisi/sierra-people-analytics/tree/main/projects/attrition-prediction-model/notebooks" style="color: var(--accent-cyan); text-decoration: none;">4 notebooks</a></div>
++                        <a class="project-link" href="https://github.com/snapaiarchitect/sierra-people-analytics/tree/main/projects/employee-attrition">View Project →</a>
++                        <div style="margin-top: 0.5rem; font-size: 0.75rem; color: var(--text-muted);">📓 <a href="https://github.com/snapaiarchitect/sierra-people-analytics/tree/main/projects/attrition-prediction-model/notebooks" style="color: var(--accent-cyan); text-decoration: none;">4 notebooks</a></div>
+                     </div>
+                     <div class="project-card">
+                         <div class="project-header">
+@@ -1074,12 +1074,12 @@
+                         </div>
+                         <p class="project-value">Employee sentiment analysis from review text and survey responses. Topic modeling reveals burnout drivers, leadership gaps, and cultural friction before they show up in turnover data.</p>
+                         <span class="project-metric">Topic + Sentiment Extraction</span>
+-                        <a class="project-link" href="https://github.com/gosidehustlesisi/sierra-people-analytics/tree/main/projects/workforce-sentiment-nlp">View Project →</a>
+-                        <div style="margin-top: 0.5rem; font-size: 0.75rem; color: var(--text-muted);">📓 <a href="https://github.com/gosidehustlesisi/sierra-people-analytics/tree/main/projects/workforce-sentiment-nlp/notebooks" style="color: var(--accent-cyan); text-decoration: none;">4 notebooks</a></div>
++                        <a class="project-link" href="https://github.com/snapaiarchitect/sierra-people-analytics/tree/main/projects/workforce-sentiment-nlp">View Project →</a>
++                        <div style="margin-top: 0.5rem; font-size: 0.75rem; color: var(--text-muted);">📓 <a href="https://github.com/snapaiarchitect/sierra-people-analytics/tree/main/projects/workforce-sentiment-nlp/notebooks" style="color: var(--accent-cyan); text-decoration: none;">4 notebooks</a></div>
+                     </div>
+                 </div>
+                 <div style="text-align: right; margin-top: 1rem;">
+-                    <a class="project-link" href="https://github.com/gosidehustlesisi/sierra-people-analytics">View Full Repository →</a>
++                    <a class="project-link" href="https://github.com/snapaiarchitect/sierra-people-analytics">View Full Repository →</a>
+                 </div>
+             </div>
+ 
+@@ -1104,8 +1104,8 @@
+                         </div>
+                         <p class="project-value">Genre performance analysis, regional content gap identification, and release timing optimization. Content portfolio analytics for streaming platforms.</p>
+                         <span class="project-metric">8K+ Titles Analyzed</span>
+-                        <a class="project-link" href="https://github.com/gosidehustlesisi/sierra-business-intelligence/tree/main/projects/netflix-content-strategy">View Project →</a>
+-                        <div style="margin-top: 0.5rem; font-size: 0.75rem; color: var(--text-muted);">📓 <a href="https://github.com/gosidehustlesisi/sierra-business-intelligence/tree/main/projects/netflix-content-strategy-intelligence/notebooks" style="color: var(--accent-cyan); text-decoration: none;">3 notebooks</a></div>
++                        <a class="project-link" href="https://github.com/snapaiarchitect/sierra-business-intelligence/tree/main/projects/netflix-content-strategy">View Project →</a>
++                        <div style="margin-top: 0.5rem; font-size: 0.75rem; color: var(--text-muted);">📓 <a href="https://github.com/snapaiarchitect/sierra-business-intelligence/tree/main/projects/netflix-content-strategy-intelligence/notebooks" style="color: var(--accent-cyan); text-decoration: none;">3 notebooks</a></div>
+                     </div>
+                     <div class="project-card">
+                         <div class="project-header">
+@@ -1120,8 +1120,8 @@
+                         </div>
+                         <p class="project-value">Review sentiment segmentation, competitive pricing intelligence, and category gap analysis for marketplace sellers and brand managers.</p>
+                         <span class="project-metric">Review Sentiment Pipeline</span>
+-                        <a class="project-link" href="https://github.com/gosidehustlesisi/sierra-business-intelligence/tree/main/projects/amazon-product-intelligence">View Project →</a>
+-                        <div style="margin-top: 0.5rem; font-size: 0.75rem; color: var(--text-muted);">📓 <a href="https://github.com/gosidehustlesisi/sierra-business-intelligence/tree/main/projects/amazon-product-customer-intelligence/notebooks" style="color: var(--accent-cyan); text-decoration: none;">3 notebooks</a></div>
++                        <a class="project-link" href="https://github.com/snapaiarchitect/sierra-business-intelligence/tree/main/projects/amazon-product-intelligence">View Project →</a>
++                        <div style="margin-top: 0.5rem; font-size: 0.75rem; color: var(--text-muted);">📓 <a href="https://github.com/snapaiarchitect/sierra-business-intelligence/tree/main/projects/amazon-product-customer-intelligence/notebooks" style="color: var(--accent-cyan); text-decoration: none;">3 notebooks</a></div>
+                     </div>
+                     <div class="project-card">
+                         <div class="project-header">
+@@ -1136,12 +1136,12 @@
+                         </div>
+                         <p class="project-value">Keyword trend forecasting, seasonal demand prediction, and competitive search share analysis. Marketing campaign timing optimization.</p>
+                         <span class="project-metric">Real-Time Trend Feed</span>
+-                        <a class="project-link" href="https://github.com/gosidehustlesisi/sierra-business-intelligence/tree/main/projects/google-search-trends">View Project →</a>
+-                        <div style="margin-top: 0.5rem; font-size: 0.75rem; color: var(--text-muted);">📓 <a href="https://github.com/gosidehustlesisi/sierra-business-intelligence/tree/main/projects/google-search-trends-market-intelligence/notebooks" style="color: var(--accent-cyan); text-decoration: none;">3 notebooks</a></div>
++                        <a class="project-link" href="https://github.com/snapaiarchitect/sierra-business-intelligence/tree/main/projects/google-search-trends">View Project →</a>
++                        <div style="margin-top: 0.5rem; font-size: 0.75rem; color: var(--text-muted);">📓 <a href="https://github.com/snapaiarchitect/sierra-business-intelligence/tree/main/projects/google-search-trends-market-intelligence/notebooks" style="color: var(--accent-cyan); text-decoration: none;">3 notebooks</a></div>
+                     </div>
+                 </div>
+                 <div style="text-align: right; margin-top: 1rem;">
+-                    <a class="project-link" href="https://github.com/gosidehustlesisi/sierra-business-intelligence">View Full Repository →</a>
++                    <a class="project-link" href="https://github.com/snapaiarchitect/sierra-business-intelligence">View Full Repository →</a>
+                 </div>
+             </div>
+ 
+@@ -1166,8 +1166,8 @@
+                         </div>
+                         <p class="project-value">Call volume forecasting, response time gap analysis, and resource allocation optimization for emergency dispatch operations.</p>
+                         <span class="project-metric">Response Time Optimization</span>
+-                        <a class="project-link" href="https://github.com/gosidehustlesisi/sierra-healthcare-analytics/tree/main/projects/911-triage-analytics">View Project →</a>
+-                        <div style="margin-top: 0.5rem; font-size: 0.75rem; color: var(--text-muted);">📓 <a href="https://github.com/gosidehustlesisi/sierra-healthcare-analytics/tree/main/projects/911-triage-impact-analysis/notebooks" style="color: var(--accent-cyan); text-decoration: none;">4 notebooks</a></div>
++                        <a class="project-link" href="https://github.com/snapaiarchitect/sierra-healthcare-analytics/tree/main/projects/911-triage-analytics">View Project →</a>
++                        <div style="margin-top: 0.5rem; font-size: 0.75rem; color: var(--text-muted);">📓 <a href="https://github.com/snapaiarchitect/sierra-healthcare-analytics/tree/main/projects/911-triage-impact-analysis/notebooks" style="color: var(--accent-cyan); text-decoration: none;">4 notebooks</a></div>
+                     </div>
+                     <div class="project-card">
+                         <div class="project-header">
+@@ -1182,8 +1182,8 @@
+                         </div>
+                         <p class="project-value">Claims pattern analysis, provider network adequacy scoring, and fraud detection signals for state Medicaid programs and managed care organizations.</p>
+                         <span class="project-metric">Claims Pattern Detection</span>
+-                        <a class="project-link" href="https://github.com/gosidehustlesisi/sierra-healthcare-analytics/tree/main/projects/medicaid-utilization">View Project →</a>
+-                        <div style="margin-top: 0.5rem; font-size: 0.75rem; color: var(--text-muted);">📓 <a href="https://github.com/gosidehustlesisi/sierra-healthcare-analytics/tree/main/projects/medicaid-utilization-reduction/notebooks" style="color: var(--accent-cyan); text-decoration: none;">4 notebooks</a></div>
++                        <a class="project-link" href="https://github.com/snapaiarchitect/sierra-healthcare-analytics/tree/main/projects/medicaid-utilization">View Project →</a>
++                        <div style="margin-top: 0.5rem; font-size: 0.75rem; color: var(--text-muted);">📓 <a href="https://github.com/snapaiarchitect/sierra-healthcare-analytics/tree/main/projects/medicaid-utilization-reduction/notebooks" style="color: var(--accent-cyan); text-decoration: none;">4 notebooks</a></div>
+                     </div>
+                     <div class="project-card">
+                         <div class="project-header">
+@@ -1198,12 +1198,12 @@
+                         </div>
+                         <p class="project-value">Disease surveillance, vaccination coverage tracking, and health equity gap monitoring. Interactive dashboards for health department leadership.</p>
+                         <span class="project-metric">Multi-Source Surveillance</span>
+-                        <a class="project-link" href="https://github.com/gosidehustlesisi/sierra-healthcare-analytics/tree/main/projects/public-health-dashboard">View Project →</a>
+-                        <div style="margin-top: 0.5rem; font-size: 0.75rem; color: var(--text-muted);">📓 <a href="https://github.com/gosidehustlesisi/sierra-healthcare-analytics/tree/main/projects/public-health-dashboard/notebooks" style="color: var(--accent-cyan); text-decoration: none;">4 notebooks</a></div>
++                        <a class="project-link" href="https://github.com/snapaiarchitect/sierra-healthcare-analytics/tree/main/projects/public-health-dashboard">View Project →</a>
++                        <div style="margin-top: 0.5rem; font-size: 0.75rem; color: var(--text-muted);">📓 <a href="https://github.com/snapaiarchitect/sierra-healthcare-analytics/tree/main/projects/public-health-dashboard/notebooks" style="color: var(--accent-cyan); text-decoration: none;">4 notebooks</a></div>
+                     </div>
+                 </div>
+                 <div style="text-align: right; margin-top: 1rem;">
+-                    <a class="project-link" href="https://github.com/gosidehustlesisi/sierra-healthcare-analytics">View Full Repository →</a>
++                    <a class="project-link" href="https://github.com/snapaiarchitect/sierra-healthcare-analytics">View Full Repository →</a>
+                 </div>
+             </div>
+         </section>
+@@ -1240,7 +1240,7 @@
+             <a href="mailto:book@baldbeautymua.com" class="cta-email">book@baldbeautymua.com</a>
+             <div class="cta-buttons">
+                 <a href="mailto:book@baldbeautymua.com" class="btn btn-primary">Start a Conversation</a>
+-                <a href="https://github.com/gosidehustlesisi" class="btn btn-secondary">Explore GitHub</a>
++                <a href="https://github.com/snapaiarchitect" class="btn btn-secondary">Explore GitHub</a>
+                 <a href="https://www.linkedin.com/in/sierran/" class="btn btn-secondary">LinkedIn</a>
+             </div>
+         </div>
+-- 
+2.43.0
+
