@@ -33,7 +33,7 @@ const layout={paper_bgcolor:'rgba(0,0,0,0)',plot_bgcolor:'rgba(0,0,0,0)',font:{c
 const config={responsive:true,displayModeBar:false};
 
 // arXiv by Category
-Papa.parse('https://raw.githubusercontent.com/gosidehustlesisi/sierra-genai-engineering/main/projects/arxiv-classifier-research-engine/data/arxiv_papers.csv',{download:true,header:true,complete:function(r){
+Papa.parse('../projects/arxiv-classifier-research-engine/data/arxiv_papers.csv',{download:true,header:true,complete:function(r){
 const cats={};r.data.forEach(d=>{if(d.category)cats[d.category]=(cats[d.category]||0)+1;});
 const sorted=Object.entries(cats).sort((a,b)=>b[1]-a[1]).slice(0,10);
 Plotly.newPlot('arxiv-cat',[{
@@ -43,7 +43,7 @@ Plotly.newPlot('arxiv-cat',[{
 }});
 
 // PubMed Journal Distribution
-Papa.parse('https://raw.githubusercontent.com/gosidehustlesisi/sierra-genai-engineering/main/projects/pubmed-research-engine/data/pubmed_abstracts.csv',{download:true,header:true,complete:function(r){
+Papa.parse('../projects/pubmed-research-engine/data/pubmed_abstracts.csv',{download:true,header:true,complete:function(r){
 const journals={};r.data.forEach(d=>{if(d.journal)journals[d.journal]=(journals[d.journal]||0)+1;});
 const sorted=Object.entries(journals).sort((a,b)=>b[1]-a[1]).slice(0,12);
 Plotly.newPlot('pubmed-journal',[{
@@ -53,7 +53,7 @@ Plotly.newPlot('pubmed-journal',[{
 }});
 
 // Congress Bills by Type
-Papa.parse('https://raw.githubusercontent.com/gosidehustlesisi/sierra-genai-engineering/main/projects/nlp-legal-document-analysis/data/congress_bills.csv',{download:true,header:true,complete:function(r){
+Papa.parse('../projects/nlp-legal-document-analysis/data/congress_bills.csv',{download:true,header:true,complete:function(r){
 const types={};r.data.forEach(d=>{if(d.bill_type)types[d.bill_type]=(types[d.bill_type]||0)+1;});
 Plotly.newPlot('congress-type',[{
   x:Object.keys(types),y:Object.values(types),type:'bar',
@@ -62,7 +62,7 @@ Plotly.newPlot('congress-type',[{
 }});
 
 // Clinical Trial Phases
-Papa.parse('https://raw.githubusercontent.com/gosidehustlesisi/sierra-genai-engineering/main/projects/nlp-clinical-trial-analysis/data/clinical_trials.csv',{download:true,header:true,complete:function(r){
+Papa.parse('../projects/nlp-clinical-trial-analysis/data/clinical_trials.csv',{download:true,header:true,complete:function(r){
 const phases={};r.data.forEach(d=>{if(d.phase)phases[d.phase]=(phases[d.phase]||0)+1;});
 Plotly.newPlot('clinical-phase',[{
   x:Object.keys(phases),y:Object.values(phases),type:'bar',
@@ -71,7 +71,7 @@ Plotly.newPlot('clinical-phase',[{
 }});
 
 // arXiv Timeline
-Papa.parse('https://raw.githubusercontent.com/gosidehustlesisi/sierra-genai-engineering/main/projects/arxiv-classifier-research-engine/data/arxiv_papers.csv',{download:true,header:true,complete:function(r){
+Papa.parse('../projects/arxiv-classifier-research-engine/data/arxiv_papers.csv',{download:true,header:true,complete:function(r){
 const dates={};r.data.forEach(d=>{if(d.published){const dt=d.published.split('T')[0];if(dt.startsWith('2026')){const m=dt.substring(5,7);dates[m]=(dates[m]||0)+1;}}});
 const months=['01','02','03','04','05','06'];const labels=['Jan','Feb','Mar','Apr','May','Jun'];
 Plotly.newPlot('arxiv-timeline',[{
@@ -81,7 +81,7 @@ Plotly.newPlot('arxiv-timeline',[{
 }});
 
 // SCOTUS Cases
-Papa.parse('https://raw.githubusercontent.com/gosidehustlesisi/sierra-genai-engineering/main/projects/nlp-supreme-court-opinion-analysis/data/scotus_cases.csv',{download:true,header:true,complete:function(r){
+Papa.parse('../projects/nlp-supreme-court-opinion-analysis/data/scotus_cases.csv',{download:true,header:true,complete:function(r){
 const terms={};r.data.forEach(d=>{if(d.term)terms[d.term]=(terms[d.term]||0)+1;});
 Plotly.newPlot('scotus-term',[{
   x:Object.keys(terms).sort(),y:Object.values(terms),type:'bar',
